@@ -1,0 +1,43 @@
+name: bank_inf
+version: "0.1"
+
+services:
+  consul:
+    image: consul:1.15.4
+    container_name: consul-inf
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    networks:
+      - "spring-inf"
+  
+  consul-importer:
+    image: consul-importer:latest
+    build:
+      context: consul-importer
+      dockerfile: Dockerfile
+    depends_on:
+      - "consul"
+    networks:
+      - "spring-inf"
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq-inf
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - "spring-inf"
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin-inf
+    ports:
+      - "9411:9411"
+    networks:
+      - "spring-inf"
+
+networks:
+  spring-inf:
+    driver: bridge

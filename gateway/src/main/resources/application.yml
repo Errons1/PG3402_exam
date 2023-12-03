@@ -1,0 +1,54 @@
+server:
+  port: 9010
+  
+spring:
+  application:
+    name: gateway
+  
+  cloud:
+    loadbalancer:
+      enabled: true
+    consul:
+      config:
+        enabled: true
+      discovery:
+        query-passing: true
+    gateway:
+      routes:
+        - id: demo1
+          uri: lb://demo1/
+          predicates:
+            - Path=/
+        - id: demo2
+          uri: lb://demo2/
+          predicates:
+            - Path=/demo2
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+            - "*"
+            allowedHeaders: 
+            - "*"
+            allowedMethods:
+              - GET
+              - POST
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET,POST
+            
+logging:
+#  level:
+#    org.springframework.cloud.gateway.handler.predicate: trace
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans

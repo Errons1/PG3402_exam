@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: logs
+  cloud:
+    consul:
+      config:
+        prefixes: config
+        default-context: defaults
+        format: yaml
+        data-key: application.yml
+      host: consul
+      port: 8500
+
+logging:
+  level:
+    org.springframework.amqp.rabbit.connection.CachingConnectionFactory: warn 
