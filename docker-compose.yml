@@ -2,17 +2,6 @@ name: bank
 version: "0.1"
 
 services:
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: frontend
-#      dockerfile: Dockerfile
-#    image: frontend:latest
-#    ports:
-#      - 8080:8080
-#    networks:
-#      - spring
-  
   consul:
     image: consul:1.15.4
     container_name: consul
@@ -63,7 +52,7 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "7000:7000"
+      - "0:8080"
     networks:
       - "spring"
 
@@ -81,7 +70,7 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "7010:7010"
+      - "0:8080"
     networks:
       - "spring"
 
@@ -99,7 +88,7 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "9000:9000"
+      - "0:8080"
     networks:
       - "spring"
 
@@ -117,7 +106,7 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "9010:9010"
+      - "8080:8080"
     networks:
       - "spring"
 

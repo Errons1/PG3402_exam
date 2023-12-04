@@ -1,10 +1,9 @@
 server:
-  port: 9010
-  
+  port: 8080
+
 spring:
   application:
     name: gateway
-  
   cloud:
     loadbalancer:
       enabled: true
@@ -26,10 +25,10 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: 
-            - "*"
-            allowedHeaders: 
-            - "*"
+            allowedOrigins:
+              - "*"
+            allowedHeaders:
+              - "*"
             allowedMethods:
               - GET
               - POST
@@ -38,10 +37,10 @@ spring:
           args:
             retries: 3
             methods: GET,POST
-            
+
 logging:
-#  level:
-#    org.springframework.cloud.gateway.handler.predicate: trace
+  #  level:
+  #    org.springframework.cloud.gateway.handler.predicate: trace
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
