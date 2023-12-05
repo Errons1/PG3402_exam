@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @AllArgsConstructor
-public class Demo1Configuration {
+public class AuthenticationConfig {
     
     RabbitTemplate rabbitTemplate;
     

@@ -7,11 +7,14 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RestController
 @AllArgsConstructor
+@RestController()
+@RequestMapping("/api/v1/")
+
 public class Demo2Controller {
 
     private final AmqpTemplate amqpTemplate;
@@ -24,7 +27,7 @@ public class Demo2Controller {
     }
 
     @ContinueSpan
-    @GetMapping("/demo2")
+    @GetMapping("/")
     public String helloWorld() {
         log.info("REST message received");
         return "Hello Demo2";

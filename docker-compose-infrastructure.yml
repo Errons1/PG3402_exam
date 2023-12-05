@@ -6,37 +6,68 @@ services:
     image: consul:1.15.4
     container_name: consul-inf
     ports:
-      - "8500:8500"
-      - "8600:8600/udp"
+      - 8500:8500
+      - 8600:8600/udp
     networks:
-      - "spring-inf"
+      - spring-inf
   
   consul-importer:
     image: consul-importer:latest
+    container_name: consul-importer-inf
     build:
-      context: consul-importer
+      context: consul-importer-inf
       dockerfile: Dockerfile
     depends_on:
-      - "consul"
+      - consul
     networks:
-      - "spring-inf"
+      - spring-inf
 
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq-inf
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
     networks:
-      - "spring-inf"
+      - spring-inf
 
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin-inf
     ports:
-      - "9411:9411"
+      - 9411:9411
     networks:
-      - "spring-inf"
+      - spring-inf
+  
+  db-authentication:
+    image: postgres
+    container_name: db-authentication-inf
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5400:5432
+    networks:
+      - spring-inf
+  
+  db-customer:
+    image: postgres
+    container_name: db-customer-inf
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5500:5432
+    networks:
+      - spring-inf
+  
+  db-account:
+    image: postgres
+    container_name: db-account-inf
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5600:5432
+    networks:
+      - spring-inf
 
 networks:
   spring-inf:

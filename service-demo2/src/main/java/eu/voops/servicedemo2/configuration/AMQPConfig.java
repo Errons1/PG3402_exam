@@ -5,6 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableRabbit
 @Configuration
-public class AMQPConfiguration {
+public class AMQPConfig {
 
 }

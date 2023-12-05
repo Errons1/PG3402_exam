@@ -1,0 +1,8 @@
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin/api/v2/spans
+
+spring:
+  rabbitmq:
+    host: rabbitmq

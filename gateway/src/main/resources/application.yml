@@ -14,14 +14,36 @@ spring:
         query-passing: true
     gateway:
       routes:
+        - id: frontend
+          uri: lb://frontend/
+          predicates:
+            - Path=/**
+
+        - id: account
+          uri: lb://account
+          predicates:
+            - Path=/account/api/v1/**
+
+        - id: customer
+          uri: lb://customer
+          predicates:
+            - Path=/customer/api/v1/**
+
+        - id: authentication
+          uri: lb://authentication
+          predicates:
+            - Path=/authentication/api/v1/**
+        
         - id: demo1
-          uri: lb://demo1/
+          uri: lb://demo1
           predicates:
-            - Path=/
+            - Path=/demo1/api/v1/**
+        
         - id: demo2
-          uri: lb://demo2/
+          uri: lb://demo2
           predicates:
-            - Path=/demo2
+            - Path=/demo2/api/v1/**
+      
       globalcors:
         cors-configurations:
           '[/**]':

@@ -6,37 +6,140 @@ services:
     image: consul:1.15.4
     container_name: consul
     ports:
-      - "8500:8500"
-      - "8600:8600/udp"
+      - 8500:8500
+      - 8600:8600/udp
     networks:
-      - "spring"
+      - spring
   
   consul-importer:
     image: consul-importer:latest
+    container_name: consul-importer
     build:
       context: consul-importer
       dockerfile: Dockerfile
     depends_on:
-      - "consul"
+      - consul
     networks:
-      - "spring"
+      - spring
       
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
     networks:
-      - "spring"
+      - spring
   
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin
     ports:
-      - "9411:9411"
+      - 9411:9411
     networks:
-      - "spring"
+      - spring
+  
+  db-authentication:
+    image: postgres
+    container_name: db-authentication
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5400:5432
+    networks:
+      - spring-inf
+
+  db-customer:
+    image: postgres
+    container_name: db-customer
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5500:5432
+    networks:
+      - spring-inf
+
+  db-account:
+    image: postgres
+    container_name: db-account
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5600:5432
+    networks:
+      - spring-inf
+        
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: frontend:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring
+  
+  account:
+    container_name: account
+    build:
+      context: account
+      dockerfile: Dockerfile
+    image: account:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring
+  
+  customer:
+    container_name: customer
+    build:
+      context: customer
+      dockerfile: Dockerfile
+    image: customer:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring
+  
+  authentication:
+    container_name: authentication
+    build:
+      context: authentication
+      dockerfile: Dockerfile
+    image: authentication:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring
 
   service-demo1:
     container_name: service-demo1
@@ -52,9 +155,9 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "0:8080"
+      - 0:8080
     networks:
-      - "spring"
+      - spring
 
   service-demo2:
     container_name: service-demo2
@@ -70,9 +173,9 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "0:8080"
+      - 0:8080
     networks:
-      - "spring"
+      - spring
 
   logs:
     container_name: logs
@@ -88,9 +191,9 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "0:8080"
+      - 0:8080
     networks:
-      - "spring"
+      - spring
 
   gateway:
     container_name: gateway
@@ -106,9 +209,9 @@ services:
       zipkin:
         condition: service_started
     ports:
-      - "8080:8080"
+      - 8080:8080
     networks:
-      - "spring"
+      - spring
 
 networks:
   spring:

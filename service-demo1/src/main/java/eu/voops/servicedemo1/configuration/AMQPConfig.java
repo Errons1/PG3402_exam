@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableRabbit
 @Configuration
-public class AMQPConfiguration {
+public class AMQPConfig {
 
     @Bean
     public TopicExchange demo1TopicExchange(@Value("exchange.demo1") final String exchangeName) {

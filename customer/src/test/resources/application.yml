@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    listener:
+      direct:
+        auto-startup: false
+  cloud:
+    consul:
+      enabled: false
+
+management:
+  health:
+    rabbit:
+      enabled: false
+
+logging:
+  level:
+    org.springframework.amqp.rabbit.connection.CachingConnectionFactory: WARN

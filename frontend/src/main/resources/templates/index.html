@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link th:href="@{css/index.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/img/favicon.png}" rel="shortcut icon" type="image/png">
+    <title>Voops Bank</title>
+</head>
+<body>
+
+<h1>Hello World</h1>
+<button hx-get="/demo" hx-trigger="click">Click me</button>
+
+<script th:src="@{js/htmx.min.js}"></script>
+</body>
+</html>
