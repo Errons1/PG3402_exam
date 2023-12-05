@@ -1,4 +1,4 @@
-package eu.voops.servicedemo1.configuration;
+package eu.voops.customer.configuration;
 
 import brave.Tracing;
 import brave.http.HttpTracing;

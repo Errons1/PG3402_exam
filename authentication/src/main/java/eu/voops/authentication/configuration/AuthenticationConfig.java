@@ -1,4 +1,4 @@
-package eu.voops.servicedemo1.configuration;
+package eu.voops.authentication.configuration;
 
 import brave.Tracing;
 import brave.http.HttpTracing;
@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @AllArgsConstructor
-public class AccountConfig {
+public class AuthenticationConfig {
     
     RabbitTemplate rabbitTemplate;
     

@@ -1,4 +1,4 @@
-package eu.voops.servicedemo1;
+package eu.voops.account;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

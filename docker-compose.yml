@@ -47,7 +47,7 @@ services:
     ports:
       - 5400:5432
     networks:
-      - spring-inf
+      - spring
 
   db-customer:
     image: postgres
@@ -57,7 +57,7 @@ services:
     ports:
       - 5500:5432
     networks:
-      - spring-inf
+      - spring
 
   db-account:
     image: postgres
@@ -67,7 +67,7 @@ services:
     ports:
       - 5600:5432
     networks:
-      - spring-inf
+      - spring
         
   frontend:
     container_name: frontend

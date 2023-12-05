@@ -1,4 +1,4 @@
-package eu.voops.servicedemo1;
+package eu.voops.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.tracing.ConditionalOnEnabledTracing;
@@ -8,10 +8,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @ConditionalOnEnabledTracing
 @EnableDiscoveryClient
 @SpringBootApplication
-public class AuthenticationApplication {
+public class CustomerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationApplication.class, args);
+		SpringApplication.run(CustomerApplication.class, args);
 	}
 
 }

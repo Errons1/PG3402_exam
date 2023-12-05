@@ -1,9 +1,8 @@
-package eu.voops.servicedemo1;
+package eu.voops.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 @RestController()
 @RequestMapping("/api/v1/")
-public class CustomerController {
+public class AuthenticationController {
 
     private RestTemplate restTemplate;
     private RabbitTemplate rabbitTemplate;

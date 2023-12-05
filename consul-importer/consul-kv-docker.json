@@ -1,5 +1,20 @@
 [
 	{
+		"key": "config/account,docker/application.yml",
+		"flags": 0,
+		"value": "c3ByaW5nOgogIGRhdGFzb3VyY2U6CiAgICB1cmw6IGpkYmM6cG9zdGdyZXNxbDovL2RiLWFjY291bnQvcG9zdGdyZXMKICAgIHVzZXJuYW1lOiBwb3N0Z3JlcwogICAgcGFzc3dvcmQ6IHBvc3RncmVz"
+	},
+	{
+		"key": "config/authentication,docker/application.yml",
+		"flags": 0,
+		"value": "c3ByaW5nOgogIGRhdGFzb3VyY2U6CiAgICB1cmw6IGpkYmM6cG9zdGdyZXNxbDovL2RiLWF1dGhlbnRpY2F0aW9uL3Bvc3RncmVzCiAgICB1c2VybmFtZTogcG9zdGdyZXMKICAgIHBhc3N3b3JkOiBwb3N0Z3Jlcw=="
+	},
+	{
+		"key": "config/customer,docker/application.yml",
+		"flags": 0,
+		"value": "c3ByaW5nOgogIGRhdGFzb3VyY2U6CiAgICB1cmw6IGpkYmM6cG9zdGdyZXNxbDovL2RiLWN1c3RvbWVyL3Bvc3RncmVzCiAgICB1c2VybmFtZTogcG9zdGdyZXMKICAgIHBhc3N3b3JkOiBwb3N0Z3Jlcw=="
+	},
+	{
 		"key": "config/defaults,docker/application.yml",
 		"flags": 0,
 		"value": "c2VydmVyOgogIHBvcnQ6IDgwODAKCm1hbmFnZW1lbnQ6CiAgemlwa2luOgogICAgdHJhY2luZzoKICAgICAgZW5kcG9pbnQ6IGh0dHA6Ly96aXBraW46OTQxMS9hcGkvdjIvc3BhbnMKCnNwcmluZzoKICByYWJiaXRtcToKICAgIGhvc3Q6IHJhYmJpdG1xCg=="
