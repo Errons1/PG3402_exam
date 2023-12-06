@@ -1,19 +1,35 @@
 package eu.voops.authentication;
 
+import eu.voops.authentication.dto.DtoCreateAccount;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @AllArgsConstructor
+@RequestMapping("/api/v1/authentication")
 @RestController()
-@RequestMapping("/api/v1/")
 public class AuthenticationController {
 
-    private RestTemplate restTemplate;
-    private RabbitTemplate rabbitTemplate;
+    private AuthenticationService service;
+
+    @PostMapping("/create-account")
+    public ResponseEntity<Object> createAccount(@Valid @RequestBody DtoCreateAccount dao) throws NoSuchAlgorithmException {
+        Authentication authentication = new Authentication(dao.getInternalId(), dao.getPersonalId(), Hash.sha256(dao.getPassword()));
+
+        log.info("Attempting to make an account");
+        service.createAccount(authentication);
+        
+        log.info("Successfully made an account");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

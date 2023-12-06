@@ -1,11 +1,11 @@
 package eu.voops.account;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.tracing.ConditionalOnEnabledTracing;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ConditionalOnEnabledTracing
+@EnableJpaRepositories
 @EnableDiscoveryClient
 @SpringBootApplication
 public class AccountApplication {

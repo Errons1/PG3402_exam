@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @AllArgsConstructor
-@RestController()
+@RestController
 @RequestMapping("/api/v1/")
 public class Demo1Controller {
 
@@ -23,7 +23,7 @@ public class Demo1Controller {
         rabbitTemplate.convertAndSend("exchange.demo1", "key", "asd");
 
         log.info("I will send REST message");
-        String test = restTemplate.getForObject("http://demo2/api/v1/", String.class);
+        restTemplate.getForObject("http://demo2/api/v1/", String.class);
         return "Hello Demo1";
     }
 
