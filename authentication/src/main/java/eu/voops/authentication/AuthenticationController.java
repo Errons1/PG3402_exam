@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 public class AuthenticationController {
 
     private AuthenticationService service;
-
+    
     @PostMapping("/create-account")
     public ResponseEntity<Object> createAccount(@Valid @RequestBody DtoCreateAccount dao) throws NoSuchAlgorithmException {
         Authentication authentication = new Authentication(dao.getInternalId(), dao.getPersonalId(), Hash.sha256(dao.getPassword()));
