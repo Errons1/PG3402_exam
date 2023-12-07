@@ -1,3 +1,27 @@
-h1 {
-    color: blue;
+body {
+    overflow-x: hidden;
+}
+
+#main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#main-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+#form-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
 }

@@ -2,12 +2,12 @@
 |-----------------|----------|-------------|---------|
 | internalId      | String   |             |         |
 | personalId      | long     |             |         |
-| password        | String   |             |         |
 | firstName       | String   |             |         |
 | lastName        | String   |             |         |
+| address         | String   |             |         |
 | tlf             | String   |             |         |
 | email           | String   |             |         |
-| address         | String   |             |         |
+| password        | String   |             |         |
 | *credit stuff?* |          |             |         |
 | *loan stuff?*   |          |             |         |
 | List<Account>   | Accounts |             |         |
