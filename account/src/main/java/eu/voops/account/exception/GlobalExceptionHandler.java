@@ -16,5 +16,12 @@ public class GlobalExceptionHandler {
         String response = "Error 500: Internal Server error";
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> illegalArgument(RuntimeException e) {
+        log.warn(e.getMessage());
+        String response = "Error 400: " + e.getMessage();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
     
 }
