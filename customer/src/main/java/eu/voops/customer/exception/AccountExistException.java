@@ -1,4 +1,4 @@
-package eu.voops.frontend.exception;
+package eu.voops.customer.exception;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,6 @@ package eu.voops.frontend.mvc;
 
 import eu.voops.frontend.Account;
 import eu.voops.frontend.dto.DtoCreateAccount;
-import eu.voops.frontend.exception.AccountExistException;
 import eu.voops.frontend.service.CreateAccountService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,39 +20,45 @@ public class CreateAccountMvc {
 
     @GetMapping("/")
     public String createAccount() {
-        return "create-account";
+        return "create-account/form";
     }
 
     @PostMapping("/")
     public String createAccountForm(@Valid @ModelAttribute DtoCreateAccount dto, Model model) {
-        log.info("Attempting to create account");
-        String internalId = service.checkIfAccountExist(dto.getPersonalId());
+        log.info("Controller: Attempting to create account");
+        
+        if (service.checkIfAccountExist(dto.getPersonalId())) {
+            log.warn("Controller: Could not make account, account exist");
+            throw new IllegalArgumentException("Account exist");
+        }
 
+        String internalId = service.createInternalId("dto");
         if (internalId.isBlank()) {
+            log.warn("Controller: Could not make account, internal id was blank or null");
             throw new IllegalArgumentException("Internal ID was blank or null");
         }
-        
+
         Account account = new Account(
                 internalId, dto.getPersonalId(), dto.getFirstName(),
                 dto.getLastName(), dto.getAddress(), dto.getTlf(),
                 dto.getEmail(), dto.getPassword()
         );
-
         try {
             service.createAccountAtAuthentication(account);
             service.createAccountAtCustomer(account);
             service.createAccountAtAccount(account);
-        } catch (AccountExistException e) {
-            log.warn("Failed to create account");
+            
+        } catch (Exception e) {
+            log.warn("Controller: " + e.getMessage());
             model.addAttribute("isSuccessful", false);
-            model.addAttribute("message", "Failed to create account");
-            return "create-account-response";
+            model.addAttribute("message", "Failed: " + e.getMessage());
+            return "create-account/response";
         }
 
-        log.info("Successfully made account");
+        log.info("Controller: Successfully made account");
         model.addAttribute("isSuccessful", true);
         model.addAttribute("message", "Successfully made account");
-        return "create-account-response";
+        return "create-account/response";
     }
 
 }

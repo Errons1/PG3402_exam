@@ -1,19 +1,21 @@
-body {
+#body {
     overflow-x: hidden;
-}
-
-#main {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-#main-buttons{
+#main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-buttons {
     display: flex;
     flex-direction: row;
 }
 
-#form-container{
+#form-container {
     display: flex;
     flex-direction: column;
 }

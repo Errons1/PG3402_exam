@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,17 +25,16 @@ public class Authentication {
     private String internalId;
     
     @Column(name = "personal_id", nullable = false)
-    @PositiveOrZero
-    private long personalId;
+    @NotBlank
+    private String personalId;
     
     @Column(name = "password_hash", nullable = false)
     @NotNull
     private byte[] passwordHash;
 
-    public Authentication(String internalId, long personalId, byte[] passwordHash) {
+    public Authentication(String internalId, String personalId, @NotNull byte[] passwordHash) {
         this.internalId = internalId;
         this.personalId = personalId;
         this.passwordHash = passwordHash;
     }
-    
 }

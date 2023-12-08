@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/api/v1/authentication")
+@RequestMapping("/api/v1")
 @RestController()
 public class AuthenticationController {
 
