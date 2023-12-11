@@ -1,5 +1,6 @@
 package eu.voops.account.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> illegalArgument(RuntimeException e) {
+    @ExceptionHandler({
+            IllegalArgumentException.class,
+            ConstraintViolationException.class
+    })
+    public ResponseEntity<String> error400(RuntimeException e) {
         log.warn(e.getMessage());
-        String response = "Error 400: " + e.getMessage();
+        String response = "Error 400: Bad request\n" + e.getMessage();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
     
