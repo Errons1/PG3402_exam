@@ -1,11 +1,15 @@
 package eu.voops.authentication;
 
-import org.instancio.Instancio;
+import eu.voops.authentication.exception.AccountExistException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.security.NoSuchAlgorithmException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class AuthenticationServiceTests {
@@ -13,40 +17,36 @@ public class AuthenticationServiceTests {
     @Autowired
     private AuthenticationService service;
     
-    @Autowired
+    @MockBean
     private AuthenticationRepository repository;
+    
+    private Authentication authentication;
     
     @BeforeEach
     public void beforeEach() {
+        byte[] hash = Hash.sha256("password");
+        authentication = new Authentication("internalId1", "personalId1", hash);
     }
     
     @AfterEach
     public void afterEach() {
-        repository.deleteAll();
+        authentication = null;
     } 
     
-    @DisplayName("Valid input account creation")
     @Test
-    public void validInputAccountCreationTest() {
-        Authentication expectedAuth = Instancio.create(Authentication.class);
-        service.createAccount(expectedAuth);
+    public void createAccount_validInput() {
+        when(repository.existsByInternalId(authentication.getInternalId())).thenReturn(false);
         
-        Authentication actualAuth = repository.findByInternalIdLike(expectedAuth.getInternalId());
+        service.createAccount(authentication);
         
-        Assertions.assertEquals(expectedAuth.getPersonalId(), actualAuth.getPersonalId());
-        Assertions.assertEquals(expectedAuth.getInternalId(), actualAuth.getInternalId());
+        verify(repository).save(authentication);
     }
-    
-    @DisplayName("Invalid input account creation")
+
     @Test
-    public void invalidInputAccountCreation() throws NoSuchAlgorithmException {
-        Authentication auth1 = new Authentication("", 123, new byte[] {10, 20});
-        Authentication auth2 = new Authentication("asd123", -1, new byte[] {10, 20});
-        Authentication auth3 = new Authentication("asd123", 123, null);
+    public void createAccount_authAlreadyExist() {
+        when(repository.existsByInternalId(authentication.getInternalId())).thenReturn(true);
         
-        Assertions.assertThrows(Exception.class, () -> service.createAccount(auth1));
-        Assertions.assertThrows(Exception.class, () -> service.createAccount(auth2));
-        Assertions.assertThrows(Exception.class, () -> service.createAccount(auth3));
+        assertThrows(AccountExistException.class, () -> service.createAccount(authentication));
     }
     
 }

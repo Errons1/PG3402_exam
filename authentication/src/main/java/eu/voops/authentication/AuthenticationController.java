@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @AllArgsConstructor
@@ -22,14 +21,14 @@ public class AuthenticationController {
     private AuthenticationService service;
     
     @PostMapping("/create-account")
-    public ResponseEntity<Object> createAccount(@Valid @RequestBody DtoCreateAccount dao) throws NoSuchAlgorithmException {
+    public ResponseEntity<Boolean> createAccount(@Valid @RequestBody DtoCreateAccount dao) {
         Authentication authentication = new Authentication(dao.getInternalId(), dao.getPersonalId(), Hash.sha256(dao.getPassword()));
-
+        
         log.info("Attempting to make an account");
         service.createAccount(authentication);
         
         log.info("Successfully made an account");
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.CREATED);
     }
 
 }

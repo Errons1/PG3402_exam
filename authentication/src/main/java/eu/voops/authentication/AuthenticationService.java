@@ -14,7 +14,7 @@ public class AuthenticationService {
 
     public void createAccount(Authentication authentication) {
         if (repository.existsByInternalId(authentication.getInternalId())) {
-            throw new AccountExistException("Account already exist", HttpStatus.BAD_REQUEST);
+            throw new AccountExistException("Account already exist");
         }
 
         repository.save(authentication);
