@@ -1,14 +1,12 @@
 package eu.voops.authentication.exception;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class AccountExistException extends RuntimeException {
-    private final HttpStatus status;
-
-    public AccountExistException(String message, HttpStatus status) {
+    public AccountExistException(String message) {
         super(message);
-        this.status = status;
     }
 }
