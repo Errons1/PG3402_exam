@@ -3,7 +3,6 @@ package eu.voops.authentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.voops.authentication.dto.DtoCreateAccount;
 import eu.voops.authentication.exception.AccountExistException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

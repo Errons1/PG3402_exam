@@ -40,7 +40,7 @@ public class AuthenticationIntegrationTests {
     }
 
     @Test
-    public void createAccount_validInput_status201() throws Exception {
+    public void createAccount_validInput_status201() {
         String url = "/api/v1/create-account";
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
@@ -49,9 +49,9 @@ public class AuthenticationIntegrationTests {
     }
 
     @Test
-    public void createAccount_accountAlreadyExist() throws Exception {
+    public void createAccount_accountAlreadyExist() {
         repository.save(authentication);
-        
+
         String url = "/api/v1/create-account";
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
@@ -59,7 +59,7 @@ public class AuthenticationIntegrationTests {
     }
 
     @Test
-    public void createAccount_invalidInput() throws Exception{
+    public void createAccount_invalidInput() {
         String internalId = dtoCreateAccount.getInternalId();
         String personalId = dtoCreateAccount.getPersonalId();
         String password = dtoCreateAccount.getPassword();
@@ -80,6 +80,6 @@ public class AuthenticationIntegrationTests {
         assertEquals(HttpStatus.BAD_REQUEST, response2.getStatusCode(), "Expects 400 BAD REQUEST from server");
         assertEquals(HttpStatus.BAD_REQUEST, response3.getStatusCode(), "Expects 400 BAD REQUEST from server");
     }
-    
-    
+
+
 }
