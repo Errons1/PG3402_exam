@@ -28,8 +28,6 @@ public class AuthenticationControllerTests {
     @MockBean
     private AuthenticationService service;
     
-    private Authentication authentication;
-    
     private DtoCreateAccount dtoCreateAccount;
 
     @BeforeEach
@@ -38,13 +36,6 @@ public class AuthenticationControllerTests {
         String personalId = "personalId1";
         String password = "password";
         dtoCreateAccount = new DtoCreateAccount(internalId, personalId, password);
-        authentication = new Authentication(internalId, personalId, Hash.sha256(password));
-    }
-    
-    @AfterEach
-    public void afterEach() {
-        dtoCreateAccount = null;
-        authentication = null;
     }
 
     @Test

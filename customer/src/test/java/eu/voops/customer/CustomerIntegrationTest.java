@@ -30,7 +30,6 @@ public class CustomerIntegrationTest {
     @AfterEach
     public void afterEach() {
         repository.deleteAll();
-        customer = null;
     }
 
     

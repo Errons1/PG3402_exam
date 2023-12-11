@@ -37,8 +37,6 @@ public class AuthenticationIntegrationTests {
     @AfterEach
     public void afterEach() {
         repository.deleteAll();
-        authentication = null;
-        dtoCreateAccount = null;
     }
 
     @Test

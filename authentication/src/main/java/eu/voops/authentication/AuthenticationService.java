@@ -2,7 +2,6 @@ package eu.voops.authentication;
 
 import eu.voops.authentication.exception.AccountExistException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 

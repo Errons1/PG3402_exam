@@ -28,11 +28,6 @@ public class AuthenticationServiceTests {
         authentication = new Authentication("internalId1", "personalId1", hash);
     }
     
-    @AfterEach
-    public void afterEach() {
-        authentication = null;
-    } 
-    
     @Test
     public void createAccount_validInput() {
         when(repository.existsByInternalId(authentication.getInternalId())).thenReturn(false);

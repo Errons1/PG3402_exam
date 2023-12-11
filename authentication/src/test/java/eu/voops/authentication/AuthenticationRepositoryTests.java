@@ -30,7 +30,6 @@ public class AuthenticationRepositoryTests {
     @AfterEach
     public void afterEach() {
         entityManager.clear();
-        authentication = null;
     }
     
     @Test
