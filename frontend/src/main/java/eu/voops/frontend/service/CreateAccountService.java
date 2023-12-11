@@ -12,8 +12,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Objects;
-
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -31,8 +29,14 @@ public class CreateAccountService {
         return accountExist;
     }
 
-    public String createInternalId(String account) {
-        return "abc123";
+    public void createAccountAtCustomer(Account account) {
+        
+    }
+    
+    public String getInternalID(String personalId) {
+        String url = "http://localhost:8080/api/v1/get-internal-id-by-personal-id/" + personalId;
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return response.getBody();
     }
 
     public void createAccountAtAuthentication(Account account) {
@@ -48,9 +52,6 @@ public class CreateAccountService {
         }
     }
 
-    public void createAccountAtCustomer(Account account) {
-
-    }
 
     public void createAccountAtAccount(Account account) {
 

@@ -32,20 +32,21 @@ public class CreateAccountMvc {
             throw new IllegalArgumentException("Account exist");
         }
 
-        String internalId = service.createInternalId("dto");
-        if (internalId.isBlank()) {
-            log.warn("Controller: Could not make account, internal id was blank or null");
-            throw new IllegalArgumentException("Internal ID was blank or null");
-        }
+//        String internalId = service.getInternalID("dto");
+//        if (internalId.isBlank()) {
+//            log.warn("Controller: Could not make account, internal id was blank or null");
+//            throw new IllegalArgumentException("Internal ID was blank or null");
+//        }
 
         Account account = new Account(
-                internalId, dto.getPersonalId(), dto.getFirstName(),
+                "temp", dto.getPersonalId(), dto.getFirstName(),
                 dto.getLastName(), dto.getAddress(), dto.getTlf(),
                 dto.getEmail(), dto.getPassword()
         );
         try {
-            service.createAccountAtAuthentication(account);
             service.createAccountAtCustomer(account);
+            account.setInternalId(service.getInternalID(account.getPersonalId()));
+            service.createAccountAtAuthentication(account);
             service.createAccountAtAccount(account);
             
         } catch (Exception e) {
