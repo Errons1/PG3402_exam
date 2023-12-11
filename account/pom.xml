@@ -42,6 +42,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio-junit</artifactId>
+            <version>3.6.0</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- DevOps / health check -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

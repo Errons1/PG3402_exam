@@ -15,7 +15,7 @@ services:
     image: consul-importer:latest
     container_name: consul-importer-inf
     build:
-      context: consul-importer-inf
+      context: consul-importer
       dockerfile: Dockerfile
     depends_on:
       - consul
