@@ -14,7 +14,7 @@ class CustomerRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerRepository repository;
 
     private Customer customer;
 
@@ -35,7 +35,7 @@ class CustomerRepositoryTest {
     void existsByPersonalId_userExists() {
         entityManager.persistAndFlush(customer);
 
-        boolean exists = customerRepository.existsByPersonalId(customer.getPersonalId());
+        boolean exists = repository.existsByPersonalId(customer.getPersonalId());
 
         assertTrue(exists, "Expect to return true when a customer with the given personal ID exists.");
     }
@@ -44,7 +44,7 @@ class CustomerRepositoryTest {
     void existsByPersonalId_userDoesNotExist() {
         String personalId = "123456789";
 
-        boolean exists = customerRepository.existsByPersonalId(personalId);
+        boolean exists = repository.existsByPersonalId(personalId);
 
         assertFalse(exists, "Expect to return false when there is no customer with the given personal ID.");
     }
@@ -53,7 +53,7 @@ class CustomerRepositoryTest {
     public void findByPersonalId_userExist() {
         entityManager.persistAndFlush(customer);
 
-        Customer found = customerRepository.findByPersonalId(customer.getPersonalId());
+        Customer found = repository.findByPersonalId(customer.getPersonalId());
 
         assertNotNull(found);
         assertEquals(found.getPersonalId(), customer.getPersonalId());
@@ -64,7 +64,7 @@ class CustomerRepositoryTest {
         entityManager.persistAndFlush(customer);
 
         String fakeId = "fakeId";
-        Customer found = customerRepository.findByPersonalId(fakeId);
+        Customer found = repository.findByPersonalId(fakeId);
 
         assertNull(found);
     }
