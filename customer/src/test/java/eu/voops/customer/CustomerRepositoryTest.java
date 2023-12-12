@@ -28,7 +28,6 @@ class CustomerRepositoryTest {
     @AfterEach
     public void afterEach() {
         entityManager.clear();
-        customer = null;
     }
 
     @Test
@@ -68,4 +67,44 @@ class CustomerRepositoryTest {
 
         assertNull(found);
     }
+
+    @Test
+    void existsByInternalId_userExists() {
+        entityManager.persistAndFlush(customer);
+
+        boolean exists = repository.existsByPersonalId(customer.getPersonalId());
+
+        assertTrue(exists, "Expect to return true when a customer with the given internal ID exists.");
+    }
+
+    @Test
+    void existsByInternalId_userDoesNotExist() {
+        String internalId = "123456789";
+
+        boolean exists = repository.existsByPersonalId(internalId);
+
+        assertFalse(exists, "Expect to return false when there is no customer with the given internal ID.");
+    }
+    
+    @Test
+    void deleteByInternalId_userExists() {
+        entityManager.persistAndFlush(customer);
+
+        repository.deleteByInternalId(customer.getInternalId());
+
+        assertFalse(repository.existsByInternalId(customer.getInternalId()), "Expect to return false when a customer with the given internal ID is deleted.");
+    }
+    
+    @Test
+    void deleteByInternalId_userDoesNotExist() {
+        String internalId = "123456789";
+
+        repository.deleteByInternalId(internalId);
+
+        assertFalse(repository.existsByInternalId(internalId), "Expect to return false when there is no customer with the given internal ID.");
+    }
+    
+    
+    
+    
 }

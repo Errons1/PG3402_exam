@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.rmi.NoSuchObjectException;
+
 @Slf4j
 @AllArgsConstructor
 @RestController()
@@ -16,6 +18,36 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private CustomerService service;
+
+    /**
+     * Checks if an account exists based on the provided personal ID.
+     *
+     * @param personalId the personal ID for which the existence of the account will be checked
+     * @return Boolean if an account with the given personal ID exists, false otherwise
+     */
+    @GetMapping("/check-if-customer-exist/{personalId}")
+    public ResponseEntity<Boolean> checkIfAccountExistByPersonalId(@PathVariable String personalId) {
+        log.info("Controller: check if account " + personalId + " exist");
+        boolean accountExist = service.checkIfAccountExistByPersonalId(personalId);
+        return new ResponseEntity<>(accountExist, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves the internal ID of a customer based on their personal ID.
+     *
+     * @param personalId the personal ID of the customer
+     * @return the internal ID of the customer
+     */
+    @GetMapping("/get-internal-id-by-personal-id/{personalId}")
+    public ResponseEntity<String> getInternalIdByPersonalId(@PathVariable String personalId) {
+        log.info("Controller: Getting internalId by " + personalId);
+        String internalId = service.getInternalIdByPersonalId(personalId);
+        if (internalId == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(internalId, HttpStatus.OK);
+        }
+    }
 
     /**
      * Creates a customer based on the provided DTO.
@@ -36,38 +68,14 @@ public class CustomerController {
         service.createCustomer(customer);
         return new ResponseEntity<>(true, HttpStatus.CREATED);
     }
-
-    /**
-     * Checks if an account exists based on the provided personal ID.
-     *
-     * @param personalId the personal ID for which the existence of the account will be checked
-     * @return Boolean if an account with the given personal ID exists, false otherwise
-     */
-    @GetMapping("/check-if-customer-exist/{personalId}")
-    public ResponseEntity<Boolean> checkIfAccountExistByPersonalId(@PathVariable String personalId) {
-        log.info("Controller: check if account " + personalId + " exist");
-        boolean accountExist = service.checkIfAccountExistByPersonalId(personalId);
-        return new ResponseEntity<>(accountExist, HttpStatus.OK);
-
-    }
-
-    /**
-     * Retrieves the internal ID of a customer based on their personal ID.
-     *
-     * @param personalId the personal ID of the customer
-     * @return the internal ID of the customer
-     */
-    @GetMapping("/get-internal-id-by-personal-id/{personalId}")
-    public ResponseEntity<String> getInternalIdByPersonalId(@PathVariable String personalId) {
-        log.info("Controller: Getting internalId by " + personalId);
-        String internalId = service.getInternalIdByPersonalId(personalId);
-        if (internalId == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(internalId, HttpStatus.OK);
-        }
-    }
     
+    /**
+     * Deletes a customer profile in case of emergency.
+     *
+     * @param internalId the internal ID of the customer profile to be deleted
+     * @return the response entity indicating the success of the operation
+     * @throws NoSuchObjectException if the customer profile with the given internal ID does not exist
+     */
     @DeleteMapping("/emergency-delete/{internalId}")
     public ResponseEntity<Object> emergencyDelete(@PathVariable @NonNull String internalId) {
         log.info("Controller: Try delete profile");

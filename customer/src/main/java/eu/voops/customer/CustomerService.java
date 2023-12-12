@@ -1,10 +1,15 @@
 package eu.voops.customer;
 
 import eu.voops.customer.dto.DtoCreateCustomer;
+import eu.voops.customer.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.rmi.NoSuchObjectException;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @AllArgsConstructor
@@ -30,21 +35,30 @@ public class CustomerService {
         for (int i = 0; i < 5; i++) {
             internalId = (dto.getPersonalId() + dto.getFirstName() + dto.getLastName() + i);
             hash = String.valueOf(internalId.hashCode());
-            
+
             if (!repository.existsByInternalId(hash)) {
                 return hash;
             }
         }
-        
+
         throw new IllegalArgumentException("Could not make internal ID");
     }
 
+    @Transactional
     public void createCustomer(Customer customer) {
-        repository.save(customer);
+        if (repository.existsByPersonalId(customer.getPersonalId())) {
+            throw new ProfileExistException();
+        } else {
+            repository.save(customer);
+        }
     }
 
     @Transactional
     public void emergencyDelete(String internalId) {
-        repository.deleteByInternalId(internalId);
+        if (repository.existsByInternalId(internalId)) {
+            repository.deleteByInternalId(internalId);
+        } else{
+            throw new NoSuchElementException("Profile does not exist");
+        }
     }
 }
