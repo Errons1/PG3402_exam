@@ -1,9 +1,11 @@
 package eu.voops.authentication;
 
-import eu.voops.authentication.exception.AccountExistException;
+import eu.voops.authentication.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class AuthenticationService {
 
     public void createAccount(Authentication authentication) {
         if (repository.existsByInternalId(authentication.getInternalId())) {
-            throw new AccountExistException("Account already exist");
+            throw new ProfileExistException("Account already exist");
         }
 
         repository.save(authentication);
@@ -22,6 +24,10 @@ public class AuthenticationService {
 
     @Transactional
     public void emergencyDelete(String internalId) {
-        repository.deleteByInternalId(internalId);
+        if (repository.existsByInternalId(internalId)) {
+            repository.deleteByInternalId(internalId);
+        } else{
+            throw new NoSuchElementException("Profile does not exist");
+        }
     }
 }

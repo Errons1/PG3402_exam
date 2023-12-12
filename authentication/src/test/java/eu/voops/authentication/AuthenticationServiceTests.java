@@ -1,15 +1,16 @@
 package eu.voops.authentication;
 
-import eu.voops.authentication.exception.AccountExistException;
+import eu.voops.authentication.exception.ProfileExistException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class AuthenticationServiceTests {
@@ -41,7 +42,29 @@ public class AuthenticationServiceTests {
     public void createAccount_authAlreadyExist() {
         when(repository.existsByInternalId(authentication.getInternalId())).thenReturn(true);
         
-        assertThrows(AccountExistException.class, () -> service.createAccount(authentication));
+        assertThrows(ProfileExistException.class, () -> service.createAccount(authentication));
+    }
+
+    @Test
+    public void emergencyDelete_successfullyDeletedProfile() {
+        String internalId = authentication.getInternalId();
+        when(repository.existsByInternalId(internalId)).thenReturn(true);
+        doNothing().when(repository).deleteByInternalId(internalId);
+
+        assertDoesNotThrow(() -> service.emergencyDelete(internalId), "EmergencyDelete should not throw any exception for valid internalId");
+
+        verify(repository).existsByInternalId(internalId);
+        verify(repository).deleteByInternalId(internalId);
+    }
+
+    @Test
+    public void emergencyDelete_failedToDeletedProfile() {
+        String internalId = authentication.getInternalId();
+        when(repository.existsByInternalId(internalId)).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () -> service.emergencyDelete(internalId), "EmergencyDelete should throw exception for existing internalId");
+
+        verify(repository).existsByInternalId(internalId);
     }
     
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -78,6 +79,25 @@ public class AuthenticationIntegrationTests {
         assertEquals(HttpStatus.BAD_REQUEST, response1.getStatusCode(), "Expects 400 BAD REQUEST from server");
         assertEquals(HttpStatus.BAD_REQUEST, response2.getStatusCode(), "Expects 400 BAD REQUEST from server");
         assertEquals(HttpStatus.BAD_REQUEST, response3.getStatusCode(), "Expects 400 BAD REQUEST from server");
+    }
+
+    @Test
+    public void emergencyDelete_successfully_status200() {
+        String internalId = authentication.getInternalId();
+        repository.save(authentication);
+
+        String url = "/api/v1/emergency-delete/" + internalId;
+        ResponseEntity<Void> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    public void emergencyDelete_accountDoesNotExist_status404() {
+        String internalId = "fakeId";
+
+        String url = "/api/v1/emergency-delete/" + internalId;
+        ResponseEntity<Void> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
 

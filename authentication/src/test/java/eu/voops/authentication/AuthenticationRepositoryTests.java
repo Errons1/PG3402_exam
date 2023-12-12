@@ -64,5 +64,23 @@ public class AuthenticationRepositoryTests {
 
         assertNull(notFoundAuthentication, "Should return NULL if auth does not exist");
     }
+
+    @Test
+    void deleteByInternalId_userExists() {
+        entityManager.persistAndFlush(authentication);
+
+        repository.deleteByInternalId(authentication.getInternalId());
+
+        assertFalse(repository.existsByInternalId(authentication.getInternalId()), "Expect to return false when a customer with the given internal ID is deleted.");
+    }
+
+    @Test
+    void deleteByInternalId_userDoesNotExist() {
+        String internalId = "123456789";
+
+        repository.deleteByInternalId(internalId);
+
+        assertFalse(repository.existsByInternalId(internalId), "Expect to return false when there is no customer with the given internal ID.");
+    }
     
 }
