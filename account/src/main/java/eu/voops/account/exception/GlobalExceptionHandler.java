@@ -30,6 +30,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProfileExistException.class)
+    public ResponseEntity<String> error409(RuntimeException e) {
+        log.warn(e.getMessage());
+        String response = "Error 409: Conflict\n" + e.getMessage();
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> error404(RuntimeException e) {
         log.warn(e.getMessage());
