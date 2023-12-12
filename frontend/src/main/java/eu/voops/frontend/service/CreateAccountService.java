@@ -69,7 +69,7 @@ public class CreateAccountService {
                 customer.getInternalId(), "Main Account"
         );
         
-        String url = "http://account/api/v1/create-account/test";
+        String url = "http://account/api/v1/create-account";
         restTemplate.postForEntity(url, dto, Boolean.class);
     }
 
