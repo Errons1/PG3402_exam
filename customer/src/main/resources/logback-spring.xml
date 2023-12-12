@@ -10,7 +10,7 @@
 <!--            <pattern>[%X{traceId:-},%X{spanId:-}] %highlight(%-5level) %msg</pattern>-->
         </layout>
 
-        <applicationId>demo1</applicationId>
+        <applicationId>customer</applicationId>
         <host>${rabbitMQHost:-localhost}</host>
         <routingKeyPattern>%property{applicationId}.%p</routingKeyPattern>
         <exchangeName>logs.topic</exchangeName>
