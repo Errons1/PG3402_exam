@@ -4,11 +4,9 @@ import eu.voops.customer.dto.DtoCreateCustomer;
 import eu.voops.customer.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.rmi.NoSuchObjectException;
 import java.util.NoSuchElementException;
 
 @Slf4j

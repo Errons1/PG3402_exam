@@ -74,7 +74,6 @@ public class CustomerController {
      *
      * @param internalId the internal ID of the customer profile to be deleted
      * @return the response entity indicating the success of the operation
-     * @throws NoSuchObjectException if the customer profile with the given internal ID does not exist
      */
     @DeleteMapping("/emergency-delete/{internalId}")
     public ResponseEntity<Object> emergencyDelete(@PathVariable @NonNull String internalId) {
