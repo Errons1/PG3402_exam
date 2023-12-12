@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @AllArgsConstructor
-@RestController()
+@RestController
 @RequestMapping("/api/v1")
 public class AccountController {
 
@@ -23,7 +23,7 @@ public class AccountController {
         log.info("Controller: attempting to create account");
         String randomAccount = service.makeAccountNumber();
         Account account = new Account(
-                dto.getInternalId(), dto.getAccountName(), randomAccount, 0D
+                dto.getInternalId(), dto.getAccountName(), randomAccount, 0L
         );
 
         service.createAccount(account);

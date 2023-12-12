@@ -8,4 +8,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     boolean existsByAccountNumber(String accountNumber);
 
     void deleteByInternalId(String internalId);
+
+    boolean existsByInternalId(String internalId);
 }

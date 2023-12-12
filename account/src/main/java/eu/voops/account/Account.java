@@ -34,6 +34,6 @@ public class Account {
     
     @NonNull
     @Column(name = "balance")
-    private Double balance;
+    private Long balance;
     
 }
