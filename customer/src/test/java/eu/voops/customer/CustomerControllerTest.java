@@ -29,7 +29,7 @@ class CustomerControllerTest {
         String personalId = "1234";
         when(service.checkIfAccountExistByPersonalId(anyString())).thenReturn(true);
 
-        mockMvc.perform(get("/api/v1/check-if-account-exist/" + personalId)
+        mockMvc.perform(get("/api/v1/check-if-customer-exist/" + personalId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
@@ -42,7 +42,7 @@ class CustomerControllerTest {
         String personalId = "1234";
         when(service.checkIfAccountExistByPersonalId(anyString())).thenReturn(false);
 
-        mockMvc.perform(get("/api/v1/check-if-account-exist/" + personalId)
+        mockMvc.perform(get("/api/v1/check-if-customer-exist/" + personalId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
                 .andExpect(content().string("false"));

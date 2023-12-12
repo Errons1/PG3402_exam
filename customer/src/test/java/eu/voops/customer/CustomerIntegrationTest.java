@@ -38,7 +38,7 @@ public class CustomerIntegrationTest {
         repository.save(customer);
         String personalId = customer.getPersonalId();
         
-        String url = "/api/v1/check-if-account-exist/" + personalId;
+        String url = "/api/v1/check-if-customer-exist/" + personalId;
         ResponseEntity<Boolean> response = restTemplate.getForEntity(url, Boolean.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode(), "Expects 200 OK from server");
@@ -49,7 +49,7 @@ public class CustomerIntegrationTest {
     public void testCheckIfAccountExist_accountDoesNotExist_status404() {
         String fakePersonalId = "fakeId";
         
-        String url = "/api/v1/check-if-account-exist/" + fakePersonalId;
+        String url = "/api/v1/check-if-customer-exist/" + fakePersonalId;
         ResponseEntity<Boolean> response = restTemplate.getForEntity(url, Boolean.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(), "Expects 404 NOT FOUND from server");

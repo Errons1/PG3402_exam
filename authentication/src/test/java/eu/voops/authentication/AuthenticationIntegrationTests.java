@@ -1,6 +1,7 @@
 package eu.voops.authentication;
 
 import eu.voops.authentication.dto.DtoCreateAccount;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,9 @@ public class AuthenticationIntegrationTests {
 
     @Test
     public void createAccount_validInput_status201() {
+        DtoCreateAccount test = Instancio.create(DtoCreateAccount.class);
         String url = "/api/v1/create-account";
+        boolean test1 = repository.existsByInternalId(test.getInternalId());
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode(), "Expects 201 CREATED from server");
@@ -53,7 +56,7 @@ public class AuthenticationIntegrationTests {
         repository.save(authentication);
 
         String url = "/api/v1/create-account";
-        ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Expects 400 BAD REQUEST from server");
     }
@@ -66,15 +69,15 @@ public class AuthenticationIntegrationTests {
 
         dtoCreateAccount.setInternalId("");
         String url = "/api/v1/create-account";
-        ResponseEntity<Boolean> response1 = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
+        ResponseEntity<String> response1 = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         dtoCreateAccount.setInternalId(internalId);
         dtoCreateAccount.setPersonalId("");
-        ResponseEntity<Boolean> response2 = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
+        ResponseEntity<String> response2 = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         dtoCreateAccount.setPersonalId(personalId);
         dtoCreateAccount.setPassword("");
-        ResponseEntity<Boolean> response3 = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
+        ResponseEntity<String> response3 = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, response1.getStatusCode(), "Expects 400 BAD REQUEST from server");
         assertEquals(HttpStatus.BAD_REQUEST, response2.getStatusCode(), "Expects 400 BAD REQUEST from server");
