@@ -8,4 +8,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     boolean existsByPersonalId(String personalId);
 
     Customer findByPersonalId(String personalId);
+
+    boolean existsByInternalId(String internalId);
+
+    void deleteByInternalId(String internalId);
 }

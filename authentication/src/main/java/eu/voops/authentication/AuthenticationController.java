@@ -3,13 +3,11 @@ package eu.voops.authentication;
 import eu.voops.authentication.dto.DtoCreateAccount;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -20,7 +18,7 @@ public class AuthenticationController {
 
     private AuthenticationService service;
     
-    @PostMapping("/create-account")
+    @PostMapping("/create-authentication")
     public ResponseEntity<Boolean> createAccount(@Valid @RequestBody DtoCreateAccount dao) {
         Authentication authentication = new Authentication(dao.getInternalId(), dao.getPersonalId(), Hash.sha256(dao.getPassword()));
         
@@ -29,6 +27,13 @@ public class AuthenticationController {
         
         log.info("Successfully made an account");
         return new ResponseEntity<>(true, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/emergency-delete/{internalId}")
+    public ResponseEntity<Object> emergencyDelete(@PathVariable @NonNull String internalId) {
+        log.info("Controller: Try delete profile");
+        service.emergencyDelete(internalId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

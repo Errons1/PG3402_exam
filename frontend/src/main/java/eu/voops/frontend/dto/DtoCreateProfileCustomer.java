@@ -1,4 +1,4 @@
-package eu.voops.frontend;
+package eu.voops.frontend.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,29 +7,25 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class Account {
-    @NotBlank
-    private String internalId;
-    
+public class DtoCreateProfileCustomer {
+
     @NotBlank
     private String personalId;
-    
+
     @NotBlank
     private String firstName;
-    
+
     @NotBlank
     private String lastName;
-    
+
     @NotBlank
     private String address;
-    
+
     @NotBlank
     private String tlf;
-    
+
     @NotBlank
     @Email
     private String email;
-    
-    @NotBlank
-    private String password;
+
 }

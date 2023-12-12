@@ -12,9 +12,4 @@ public class IndexService {
     
     RestTemplate restTemplate;
     
-    public String demo() {
-        String response = restTemplate.getForObject("http://demo1/api/v1/", String.class);
-        log.info(response);  
-        return response;
-    }
 }

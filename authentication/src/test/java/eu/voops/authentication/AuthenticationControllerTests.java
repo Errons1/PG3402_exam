@@ -43,7 +43,7 @@ public class AuthenticationControllerTests {
         
         String json = new ObjectMapper().writeValueAsString(dtoCreateAccount);
         
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
@@ -58,7 +58,7 @@ public class AuthenticationControllerTests {
         
         String json = new ObjectMapper().writeValueAsString(dtoCreateAccount);
 
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest());
@@ -70,7 +70,6 @@ public class AuthenticationControllerTests {
     public void createAccount_invalidInput() throws Exception{
         String internalId = dtoCreateAccount.getInternalId();
         String personalId = dtoCreateAccount.getPersonalId();
-        String password = dtoCreateAccount.getPassword();
         
         dtoCreateAccount.setInternalId("");
         String json1 = new ObjectMapper().writeValueAsString(dtoCreateAccount);
@@ -83,22 +82,22 @@ public class AuthenticationControllerTests {
         dtoCreateAccount.setPassword("");
         String json3 = new ObjectMapper().writeValueAsString(dtoCreateAccount);
 
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isBadRequest());
 
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json1))
                 .andExpect(status().isBadRequest());
 
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json2))
                 .andExpect(status().isBadRequest());
 
-        mockMvc.perform(post("/api/v1/create-account")
+        mockMvc.perform(post("/api/v1/create-authentication")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json3))
                 .andExpect(status().isBadRequest());

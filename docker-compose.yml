@@ -141,42 +141,6 @@ services:
     networks:
       - spring
 
-  service-demo1:
-    container_name: service-demo1
-    build:
-      context: service-demo1
-      dockerfile: Dockerfile
-    image: service-demo1:latest
-    depends_on: 
-      consul:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
-      zipkin:
-        condition: service_started
-    ports:
-      - 0:8080
-    networks:
-      - spring
-
-  service-demo2:
-    container_name: service-demo2
-    build:
-      context: service-demo2
-      dockerfile: Dockerfile
-    image: service-demo2:latest
-    depends_on:
-      consul:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
-      zipkin:
-        condition: service_started
-    ports:
-      - 0:8080
-    networks:
-      - spring
-
   logs:
     container_name: logs
     build:

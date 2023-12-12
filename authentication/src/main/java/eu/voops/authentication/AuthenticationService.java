@@ -1,6 +1,7 @@
 package eu.voops.authentication;
 
 import eu.voops.authentication.exception.AccountExistException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public class AuthenticationService {
 
         repository.save(authentication);
     }
-    
+
+    @Transactional
+    public void emergencyDelete(String internalId) {
+        repository.deleteByInternalId(internalId);
+    }
 }

@@ -40,8 +40,8 @@ public class AuthenticationIntegrationTests {
     }
 
     @Test
-    public void createAccount_validInput_status201() {
-        String url = "/api/v1/create-account";
+    public void createAuthentication_validInput_status201() {
+        String url = "/api/v1/create-authentication";
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode(), "Expects 201 CREATED from server");
@@ -49,22 +49,22 @@ public class AuthenticationIntegrationTests {
     }
 
     @Test
-    public void createAccount_accountAlreadyExist() {
+    public void createAuthentication_accountAlreadyExist() {
         repository.save(authentication);
 
-        String url = "/api/v1/create-account";
+        String url = "/api/v1/create-authentication";
         ResponseEntity<String> response = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Expects 400 BAD REQUEST from server");
     }
 
     @Test
-    public void createAccount_invalidInput() {
+    public void createAuthentication_invalidInput() {
         String internalId = dtoCreateAccount.getInternalId();
         String personalId = dtoCreateAccount.getPersonalId();
 
         dtoCreateAccount.setInternalId("");
-        String url = "/api/v1/create-account";
+        String url = "/api/v1/create-authentication";
         ResponseEntity<String> response1 = restTemplate.postForEntity(url, dtoCreateAccount, String.class);
 
         dtoCreateAccount.setInternalId(internalId);

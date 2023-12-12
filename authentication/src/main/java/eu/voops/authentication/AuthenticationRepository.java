@@ -9,5 +9,6 @@ public interface AuthenticationRepository extends JpaRepository<Authentication, 
     boolean existsByInternalId(String internalId);
     
     Authentication findByInternalIdLike(String internalId);
-    
+
+    void deleteByInternalId(String internalId);
 }

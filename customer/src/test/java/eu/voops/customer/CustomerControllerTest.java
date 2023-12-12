@@ -73,4 +73,16 @@ class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
+
+    @Test
+    void createCustomer() {
+    }
+
+    @Test
+    void checkIfAccountExistByPersonalId() {
+    }
+
+    @Test
+    void getInternalIdByPersonalId() {
+    }
 }

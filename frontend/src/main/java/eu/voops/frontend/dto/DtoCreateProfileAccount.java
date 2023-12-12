@@ -6,15 +6,12 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class DtoCreateAccountAuthentication {
+public class DtoCreateProfileAccount {
 
     @NotBlank
     private String internalId;
 
     @NotBlank
-    private String personalId;
-
-    @NotBlank
-    private String password;
+    private String accountName;
     
 }

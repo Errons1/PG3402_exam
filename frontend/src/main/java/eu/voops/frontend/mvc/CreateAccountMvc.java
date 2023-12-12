@@ -1,10 +1,11 @@
 package eu.voops.frontend.mvc;
 
-import eu.voops.frontend.Account;
+import eu.voops.frontend.Customer;
 import eu.voops.frontend.dto.DtoCreateAccount;
 import eu.voops.frontend.service.CreateAccountService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,38 +19,52 @@ public class CreateAccountMvc {
 
     CreateAccountService service;
 
+    /**
+     * This method is used to get the create account form.
+     *
+     * @return The name of the HTML form file.
+     */
     @GetMapping("/")
     public String createAccount() {
         return "create-account/form";
     }
 
+    /**
+     * This method is used to submit the create account form and attempt to create a new account.
+     *
+     * @param dto   The data transfer object containing the account information.
+     * @param model The model used to add attributes for the response view.
+     * @return The name of the response view file.
+     */
+    
     @PostMapping("/")
-    public String createAccountForm(@Valid @ModelAttribute DtoCreateAccount dto, Model model) {
+    public String createAccountForm(@Valid @NonNull @ModelAttribute DtoCreateAccount dto, Model model) {
         log.info("Controller: Attempting to create account");
-        
-        if (service.checkIfAccountExist(dto.getPersonalId())) {
-            log.warn("Controller: Could not make account, account exist");
-            throw new IllegalArgumentException("Account exist");
-        }
-
-//        String internalId = service.getInternalID("dto");
-//        if (internalId.isBlank()) {
-//            log.warn("Controller: Could not make account, internal id was blank or null");
-//            throw new IllegalArgumentException("Internal ID was blank or null");
-//        }
-
-        Account account = new Account(
+        Customer customer = new Customer(
                 "temp", dto.getPersonalId(), dto.getFirstName(),
                 dto.getLastName(), dto.getAddress(), dto.getTlf(),
                 dto.getEmail(), dto.getPassword()
         );
+        
         try {
-            service.createAccountAtCustomer(account);
-            account.setInternalId(service.getInternalID(account.getPersonalId()));
-            service.createAccountAtAuthentication(account);
-            service.createAccountAtAccount(account);
+            if (service.checkIfAccountExist(dto.getPersonalId())) {
+                throw new IllegalArgumentException("Account exist");
+            }
+            
+            service.createProfileAtCustomer(customer);
+            customer.setInternalId(service.getInternalID(customer.getPersonalId()));
+            log.info("Controller: Made profile at Customer");
+            service.createProfileAtAuthentication(customer);
+            log.info("Controller: Made profile at Authentication");
+            service.createProfileAtAccount(customer);
+            log.info("Controller: Made profile at Account");
             
         } catch (Exception e) {
+            try {
+                service.emergencyDelete(customer);
+            } catch (Exception e2) {
+                log.error("Controller: " + e2.getMessage());
+            }
             log.warn("Controller: " + e.getMessage());
             model.addAttribute("isSuccessful", false);
             model.addAttribute("message", "Failed: " + e.getMessage());
