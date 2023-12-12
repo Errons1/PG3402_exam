@@ -3,7 +3,6 @@ package eu.voops.account;
 import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
