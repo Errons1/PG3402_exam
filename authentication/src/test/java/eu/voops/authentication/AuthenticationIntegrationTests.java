@@ -44,7 +44,6 @@ public class AuthenticationIntegrationTests {
     public void createAccount_validInput_status201() {
         DtoCreateAccount test = Instancio.create(DtoCreateAccount.class);
         String url = "/api/v1/create-account";
-        boolean test1 = repository.existsByInternalId(test.getInternalId());
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode(), "Expects 201 CREATED from server");
@@ -65,7 +64,6 @@ public class AuthenticationIntegrationTests {
     public void createAccount_invalidInput() {
         String internalId = dtoCreateAccount.getInternalId();
         String personalId = dtoCreateAccount.getPersonalId();
-        String password = dtoCreateAccount.getPassword();
 
         dtoCreateAccount.setInternalId("");
         String url = "/api/v1/create-account";
