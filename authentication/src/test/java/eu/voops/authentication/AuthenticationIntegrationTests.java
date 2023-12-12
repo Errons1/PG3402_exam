@@ -1,7 +1,6 @@
 package eu.voops.authentication;
 
 import eu.voops.authentication.dto.DtoCreateAccount;
-import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,6 @@ public class AuthenticationIntegrationTests {
 
     @Test
     public void createAccount_validInput_status201() {
-        DtoCreateAccount test = Instancio.create(DtoCreateAccount.class);
         String url = "/api/v1/create-account";
         ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dtoCreateAccount, Boolean.class);
 
