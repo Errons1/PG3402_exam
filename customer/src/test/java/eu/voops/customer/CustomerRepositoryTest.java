@@ -104,7 +104,4 @@ class CustomerRepositoryTest {
         assertFalse(repository.existsByInternalId(internalId), "Expect to return false when there is no customer with the given internal ID.");
     }
     
-    
-    
-    
 }

@@ -36,7 +36,7 @@ public class CustomerIntegrationTest {
 
 
     @Test
-    public void testCheckIfAccountExist_accountExist_status200() {
+    public void checkIfAccountExist_accountExist_status200() {
         repository.save(customer);
         String personalId = customer.getPersonalId();
 
@@ -48,7 +48,7 @@ public class CustomerIntegrationTest {
     }
 
     @Test
-    public void testCheckIfAccountExist_accountDoesNotExist_status404() {
+    public void checkIfAccountExist_accountDoesNotExist_status404() {
         String fakePersonalId = "fakeId";
 
         String url = "/api/v1/check-if-customer-exist/" + fakePersonalId;

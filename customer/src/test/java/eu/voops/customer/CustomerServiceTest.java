@@ -32,11 +32,6 @@ public class CustomerServiceTest {
                 "123456789", "email@example.no");
     }
 
-    @AfterEach
-    public void afterEach() {
-        customer = null;
-    }
-
     @Test
     public void checkIfAccountExistByPersonalId_accountExist() {
         String testPersonalId = "12345678";
