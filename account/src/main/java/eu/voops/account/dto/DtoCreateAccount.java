@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class DtoCreateAccount {
-
+    
     @NotBlank
     @Column(name = "internal_id")
     private String internalId;
