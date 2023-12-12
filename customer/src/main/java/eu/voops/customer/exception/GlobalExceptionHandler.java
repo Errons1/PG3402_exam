@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.rmi.NoSuchObjectException;
+import java.util.NoSuchElementException;
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,6 +29,20 @@ public class GlobalExceptionHandler {
         log.warn(e.getMessage());
         String response = "Error 400: Bad request\n" + e.getMessage();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProfileExistException.class)
+    public ResponseEntity<String> error409(RuntimeException e) {
+        log.warn(e.getMessage());
+        String response = "Error 409: Conflict\n" + e.getMessage();
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> error404(RuntimeException e) {
+        log.warn(e.getMessage());
+        String response = "Error 404: NOT FOUND\n" + e.getMessage();
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
     
 }

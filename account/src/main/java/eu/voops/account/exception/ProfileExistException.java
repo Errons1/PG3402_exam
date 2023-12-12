@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class AccountExistException extends RuntimeException {
-    public AccountExistException(String message) {
+public class ProfileExistException extends RuntimeException {
+    public ProfileExistException(String message) {
         super(message);
     }
 }
