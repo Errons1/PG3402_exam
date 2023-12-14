@@ -3,7 +3,6 @@ package eu.voops.frontend.uri.login;
 import eu.voops.frontend.dto.DtoLogin;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;

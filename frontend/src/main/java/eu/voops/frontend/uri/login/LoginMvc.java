@@ -2,7 +2,6 @@ package eu.voops.frontend.uri.login;
 
 import eu.voops.frontend.dto.DtoLogin;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -11,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 @Slf4j
 @AllArgsConstructor
@@ -45,15 +42,17 @@ public class LoginMvc {
         }
         
         String internalId = service.getInternalId(dto.getPersonalId());
-        if (isLoggedInCookie.isEmpty() || internalId.isEmpty()) {
+        if (isLoggedInCookie.isEmpty() || internalIdCookie.isEmpty()) {
+            final int hour = 60 * 60;
+            
             Cookie cookie1 = new Cookie("internalId", internalId);
             cookie1.setHttpOnly(true); // Mitigate XSS attacks
-            cookie1.setMaxAge(60 * 60);  // Cookie will be valid for 1 hour 
+            cookie1.setMaxAge(hour);  // Cookie will be valid for 1 hour 
             response.addCookie(cookie1);
 
             Cookie cookie2 = new Cookie("isLoggedIn", "true");
             cookie2.setHttpOnly(true);
-            cookie2.setMaxAge(60 * 60);
+            cookie2.setMaxAge(hour);
             response.addCookie(cookie2);
 
             log.info("Successful login");
