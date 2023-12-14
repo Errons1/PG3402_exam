@@ -1,0 +1,13 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<div th:if="${isAccounts}">
+    <div hx-get="/accounts" hx-target="#main-container" hx-trigger="load"></div>
+</div>
+
+<div id="main-buttons">
+    <div th:insert="~{fragments/login-button}"></div>
+    <div th:insert="~{fragments/create-account-button}"></div>
+</div>
+
+<div th:insert="~{fragments/create-dummy-data-button}"></div>
