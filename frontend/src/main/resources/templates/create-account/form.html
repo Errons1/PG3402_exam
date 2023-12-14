@@ -1,5 +1,8 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
 <div>
-    <form th:action="@{/create-account/}" method="post" hx-post="/create-account/" hx-target="#form-container" hx-swap="outerHTML">
+    <form hx-post="/create-account" hx-target="#main-container">
         <div id="form-container">
             <label for="personalId">Personal ID</label><br>
             <input type="text" id="personalId" name="personalId" required>

@@ -1,6 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" lang="">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,15 +13,17 @@
 
 <h1 hx-get="/" hx-target="#body" style="cursor: pointer">Voops bank</h1>
 <div id="main-container">
-    <div id="main-buttons">
-        <button id="button-login" class="frontpage-main-button">
-            Login
-        </button>
-        <button hx-get="/create-account/" hx-trigger="click" hx-target="#main-container" id="button-create-customer"
-                class="frontpage-main-button">
-            Create Account
-        </button>
+    
+    <div th:if="${isAccounts}">
+        <div hx-get="/accounts" hx-target="#main-container" hx-trigger="load"></div>
     </div>
+
+    <div id="main-buttons">
+        <div th:insert="~{fragments/login-button}"></div>
+        <div th:insert="~{fragments/create-account-button}"></div>
+    </div>
+
+    <div th:insert="~{fragments/create-dummy-data-button}"></div>
 </div>
 
 <script th:src="@{js/htmx.min.js}"></script>

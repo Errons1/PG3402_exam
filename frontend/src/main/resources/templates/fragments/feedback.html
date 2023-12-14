@@ -1,0 +1,13 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<div>
+    <div th:if="${isSuccessful}" class="success-message">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div th:if="${!isSuccessful}" class="error-message">
+        <p th:text="${message}"></p>
+    </div>
+</div>
+
