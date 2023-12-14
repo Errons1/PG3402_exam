@@ -22,17 +22,17 @@ spring:
         - id: account
           uri: lb://account
           predicates:
-            - Path=/account/api/v1/**
+            - Path=/api/v1/**
 
         - id: customer
           uri: lb://customer
           predicates:
-            - Path=/customer/api/v1/**
+            - Path=/api/v1/**
 
         - id: authentication
           uri: lb://authentication
           predicates:
-            - Path=/authentication/api/v1/**
+            - Path=/api/v1/**
         
         - id: demo1
           uri: lb://demo1
