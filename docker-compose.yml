@@ -104,6 +104,8 @@ services:
       - 0:8080
     networks:
       - spring
+#    deploy:
+#      replicas: 3
   
   customer:
     container_name: customer
@@ -122,6 +124,8 @@ services:
       - 0:8080
     networks:
       - spring
+#    deploy:
+#      replicas: 3
   
   authentication:
     container_name: authentication
@@ -140,6 +144,8 @@ services:
       - 0:8080
     networks:
       - spring
+#    deploy:
+#      replicas: 3
 
   logs:
     container_name: logs
