@@ -1,4 +1,4 @@
-package eu.voops.frontend.service;
+package eu.voops.frontend.uri.create_account;
 
 import eu.voops.frontend.Customer;
 import eu.voops.frontend.dto.DtoCreateProfileAccount;
@@ -22,6 +22,12 @@ public class CreateAccountService {
 
     RestTemplate restTemplate;
 
+    public String getInternalId(String personalId) {
+        String url = "http://customer/api/v1/get-internal-id-by-personal-id/" + personalId;
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return response.getBody();
+    }
+
     public boolean checkIfAccountExist(String personalId) {
         boolean accountExist;
 
@@ -42,11 +48,7 @@ public class CreateAccountService {
         restTemplate.postForEntity(url, dto, Boolean.class);
     }
 
-    public String getInternalID(String personalId) {
-        String url = "http://customer/api/v1/get-internal-id-by-personal-id/" + personalId;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return response.getBody();
-    }
+
 
     public void createProfileAtAuthentication(@NonNull Customer customer) {
         DtoCreateProfileAuthentication dto = new DtoCreateProfileAuthentication(

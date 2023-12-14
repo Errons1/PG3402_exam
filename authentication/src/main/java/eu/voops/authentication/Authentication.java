@@ -14,20 +14,20 @@ import lombok.Setter;
 @Table(name = "authentications")
 public class Authentication {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
     
-    @Column(name = "internal_id", nullable = false)
     @NotBlank
+    @Column(name = "internal_id", nullable = false)
     private String internalId;
     
-    @Column(name = "personal_id", nullable = false)
     @NotBlank
+    @Column(name = "personal_id", nullable = false)
     private String personalId;
     
-    @Column(name = "password_hash", nullable = false)
     @NotNull
+    @Column(name = "password_hash", nullable = false)
     private byte[] passwordHash;
 
     public Authentication(String internalId, String personalId, @NotNull byte[] passwordHash) {
