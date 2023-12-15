@@ -36,7 +36,6 @@ public class AccountsMvc {
     @GetMapping("/get-all-accounts")
     public String getAllAccounts(Model model,
                            @CookieValue(value = "internalId", required = false) String  internalIdCookie,
-                           @CookieValue(value = "isLoggedIn", required = false) String isLoggedInCookie
     ) {
         log.info("getting all account information");
         List<DtoAccount> accounts = service.getAllAccounts(internalIdCookie);
