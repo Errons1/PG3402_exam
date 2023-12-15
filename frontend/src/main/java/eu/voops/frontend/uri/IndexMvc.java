@@ -19,7 +19,7 @@ public class IndexMvc {
                         @CookieValue(value = "internalId", defaultValue = "") String internalIdCookie,
                         @CookieValue(value = "isLoggedIn", defaultValue = "") String isLoggedInCookie
     ) {
-        if (!internalIdCookie.isEmpty() || !isLoggedInCookie.isEmpty()) {
+        if (!internalIdCookie.isEmpty() && !isLoggedInCookie.isEmpty()) {
             log.info("Serving accounts");
             model.addAttribute("isAccounts", true);
             return "index";
