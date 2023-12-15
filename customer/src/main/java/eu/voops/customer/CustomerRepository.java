@@ -12,4 +12,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     boolean existsByInternalId(String internalId);
 
     void deleteByInternalId(String internalId);
+
+    Customer findByInternalId(String internalId);
 }

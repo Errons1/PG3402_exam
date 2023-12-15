@@ -80,5 +80,21 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Retrieves the full name associated with the provided internal ID.
+     *
+     * @param internalId the internal ID used to identify the full name
+     * @return a ResponseEntity object containing the full name if found, otherwise returns HTTP status code 404 (NOT_FOUND)
+     */
+    @GetMapping("get-full-name/{internalId}")
+    public ResponseEntity<String> getFullName(@PathVariable @NonNull String internalId) {
+        log.info("Controller: Getting full name");
+        String fullName = service.getFullName(internalId);
+        if (fullName == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(fullName, HttpStatus.OK);
+        }
+    }
 
 }

@@ -59,4 +59,13 @@ public class CustomerService {
             throw new NoSuchElementException("Profile does not exist");
         }
     }
+
+    public String getFullName(String internalId) {
+        StringBuilder builder = new StringBuilder();
+        Customer customer = repository.findByInternalId(internalId);
+        builder.append(customer.getFirstName());
+        builder.append(" ");
+        builder.append(customer.getLastName());
+        return builder.toString();
+    }
 }
