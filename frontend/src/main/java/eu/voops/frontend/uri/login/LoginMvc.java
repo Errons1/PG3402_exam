@@ -56,14 +56,10 @@ public class LoginMvc {
             response.addCookie(cookie2);
 
             log.info("Successful login");
-            model.addAttribute("isLoggedIn", true);
-            model.addAttribute("Test text", true);
-            model.addAttribute("user", "test");
-            return "accounts/accounts";
+            return "login/redirect";
         }
 
-
-        log.info("Successful login");
-        return "redirect: /accounts";
+        log.info("Successful login??");
+        return "login/redirect";
     }
 }
