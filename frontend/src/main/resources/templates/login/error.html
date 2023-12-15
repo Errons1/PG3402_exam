@@ -1,11 +1,11 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 
-<div th:insert="~{fragments/feedback}"></div>
+<div th:insert="~{fragments/element-feedback}"></div>
 
-<div id="main-buttons">
-    <div th:insert="~{fragments/login-button}"></div>
-    <div th:insert="~{fragments/create-account-button}"></div>
+<div id="main-buttons-container">
+    <div th:insert="~{fragments/button-login}"></div>
+    <div th:insert="~{fragments/button-create-account}"></div>
+    <div th:insert="~{fragments/button-create-dummy-data}"></div>
 </div>
 
-<div th:insert="~{fragments/create-dummy-data-button}"></div>

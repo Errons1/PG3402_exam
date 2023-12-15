@@ -6,9 +6,9 @@
             <div class="account-box">
                 <div class="account-details">
                     <div th:text="${account.accountName}" class="account-name"></div>
-                    <div th:text="${account.accountNumber}" class="account-number"></div>
+                    <div th:text="|kontonummer: ${account.accountNumber}|" class="account-number"></div>
                 </div>
-                <div th:text="${account.balance}" class="account-balance">Balance: </div>
+                <div th:text="|${account.balance} ,-|" class="account-balance">Balance: </div>
             </div>
         </li>
     </ul>

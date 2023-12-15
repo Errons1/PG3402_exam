@@ -1,9 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 
-<div id="logout-body">
-    <p th:text="${user}"></p>
-    <button hx-get="/logout" hx-trigger="click" hx-target="#main-container" id="button-login">
+    <p th:text="|Konto: ${user}|"></p>
+    <button hx-get="/logout" hx-trigger="click" hx-target="#main-container">
         Logout
     </button>
-</div>

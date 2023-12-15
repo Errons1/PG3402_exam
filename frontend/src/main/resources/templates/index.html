@@ -12,19 +12,19 @@
 </head>
 <body id="body">
 
-<h1 hx-get="/" hx-target="#body" style="cursor: pointer">Voops bank</h1>
+<h1 hx-get="/" hx-target="#body" hx-trigger="click" style="cursor: pointer">Voops bank</h1>
 <div id="main-container">
-    
+
     <div th:if="${isAccounts}">
         <div hx-get="/accounts" hx-target="#main-container" hx-trigger="load"></div>
     </div>
 
-    <div id="main-buttons">
-        <div th:insert="~{fragments/login-button}"></div>
-        <div th:insert="~{fragments/create-account-button}"></div>
+    <div id="main-buttons-container">
+        <div th:replace="~{fragments/button-login}"></div>
+        <div th:replace="~{fragments/button-create-account}"></div>
+        <div th:replace="~{fragments/button-create-dummy-data}"></div>
     </div>
 
-    <div th:insert="~{fragments/create-dummy-data-button}"></div>
 </div>
 
 <script th:src="@{js/htmx.min.js}"></script>

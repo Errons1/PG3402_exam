@@ -5,9 +5,9 @@
     <div hx-get="/accounts" hx-target="#main-container" hx-trigger="load"></div>
 </div>
 
-<div id="main-buttons">
-    <div th:insert="~{fragments/login-button}"></div>
-    <div th:insert="~{fragments/create-account-button}"></div>
+<div id="main-buttons-container">
+    <div th:insert="~{fragments/button-login}"></div>
+    <div th:insert="~{fragments/button-create-account}"></div>
 </div>
 
-<div th:insert="~{fragments/create-dummy-data-button}"></div>
+<div th:insert="~{fragments/button-create-dummy-data}"></div>

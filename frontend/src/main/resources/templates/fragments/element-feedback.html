@@ -3,11 +3,11 @@
 
 <div>
     <div th:if="${isSuccessful}" class="success-message">
-        <p th:text="${message}"></p>
+        <p th:utext="${#strings.replace(message, '\n', '<br/>')}"></p>
     </div>
 
     <div th:if="${!isSuccessful}" class="error-message">
-        <p th:text="${message}"></p>
+        <p th:utext="${#strings.replace(message, '\n', '<br/>')}"></p>
     </div>
 </div>
 
