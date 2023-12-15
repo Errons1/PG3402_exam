@@ -1,10 +1,13 @@
 package eu.voops.account;
 
+import eu.voops.account.dto.DtoAccount;
 import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -46,5 +49,21 @@ public class AccountService {
         } else {
             throw new NoSuchElementException("Profile does not exist");
         }
+    }
+
+    public List<DtoAccount> getAllAccounts(String internalId) {
+        List<Account> accounts = repository.findAllByInternalId(internalId);
+        List<DtoAccount> dtoAccounts = new ArrayList<>(accounts.size());
+        
+        for (Account account : accounts) {
+            DtoAccount dto = new DtoAccount(
+                    account.getInternalId(), account.getAccountName(),
+                    account.getAccountNumber(), account.getBalance()
+            );    
+            
+            dtoAccounts.add(dto);
+        }
+        
+        return dtoAccounts;
     }
 }
