@@ -1,18 +1,69 @@
-#body {
+body {
+    font-family: Arial, sans-serif; /* Use a simple, readable font */
+    color: #333; /* Dark grey color for most text */
+    line-height: 1.6; /* Space out lines of text */
+    padding: 20px; /* Add some space around the content */
+    background-color: #f4f4f4; /* Light grey background */
+
     overflow-x: hidden;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-#main-container {
-    display: flex;
-    flex-direction: column;
+h1, h2, h3, h4, h5, h6 {
+    color: #444;
+    margin: 10px;
 }
 
-#main-buttons {
+a {
+    color: #0080ff; /* A bright blue for links */
+    text-decoration: none; /* Remove underlines from links */
+}
+
+a:hover {
+    color: #0059b3; /* A different blue for hovered links */
+}
+
+/* Style buttons with a gradient background and some padding */
+button {
+    width: 150px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#main-container {
+    width: 80%;
+    /*margin: auto; !* Center the content on the page *!*/
+    overflow: hidden; /* Clear floats */
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
 }
 
 #form-container {
