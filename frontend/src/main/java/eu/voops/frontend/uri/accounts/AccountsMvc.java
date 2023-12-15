@@ -24,15 +24,24 @@ public class AccountsMvc {
                            @CookieValue(value = "internalId", required = false) String  internalIdCookie,
                            @CookieValue(value = "isLoggedIn", required = false) String isLoggedInCookie
     ) {
-        String user = service.getFullNameWithInternalId(internalIdCookie);
-        List<DtoAccount> accounts = service.getAllAccounts(internalIdCookie);
         model.addAttribute("isLoggedIn", isLoggedInCookie);
         model.addAttribute("internalId", internalIdCookie);
         
+        String user = service.getFullNameWithInternalId(internalIdCookie);
         model.addAttribute("user", user);
-        model.addAttribute("accounts", accounts);
         
         return "accounts/accounts";
     }
     
+    @GetMapping("/get-all-accounts")
+    public String getAllAccounts(Model model,
+                           @CookieValue(value = "internalId", required = false) String  internalIdCookie,
+                           @CookieValue(value = "isLoggedIn", required = false) String isLoggedInCookie
+    ) {
+        log.info("getting all account information");
+        List<DtoAccount> accounts = service.getAllAccounts(internalIdCookie);
+        model.addAttribute("accounts", accounts);
+
+        return "fragments/element-accounts";
+    }
 }

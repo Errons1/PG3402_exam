@@ -114,11 +114,17 @@ public class CreateAccountMvc {
 
         log.info("Controller: Successfully made account");
         model.addAttribute("isSuccessful", true);
-        model.addAttribute("message",
-                "Successfully made account" +
-                "Username: " + customer.getPersonalId() + "   " +
-                "Password: " + customer.getPassword() + "   "
-        );
+        String message = """
+                Successfully made account!
+                Username: %s
+                Password: %s
+                """.formatted(customer.getPersonalId(), customer.getPassword());
+        model.addAttribute("message", message);
+//        model.addAttribute("message",
+//                "Successfully made account \n" +
+//                "Username: " + customer.getPersonalId() + "   \n" +
+//                "Password: " + customer.getPassword() + "   "
+//        );
         return "create-account/response";
     }
 
