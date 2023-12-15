@@ -1,0 +1,15 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<div id="listDiv">
+    <ul th:each="account : ${accounts}" style="list-style-type: none">
+        <li>
+            <div class="account-box">
+                <div class="account-details">
+                    <div th:text="${account.accountName}" class="account-name"></div>
+                    <div th:text="${account.accountNumber}" class="account-number"></div>
+                </div>
+                <div th:text="${account.balance}" class="account-balance">Balance: </div>
+            </div>
+        </li>
+    </ul>
+</div>

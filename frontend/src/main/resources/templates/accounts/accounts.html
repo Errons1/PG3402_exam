@@ -1,6 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 
-<div>
+<div hx-get="/accounts" hx-trigger="every 5s">
     <div th:insert="~{fragments/logout-button}"></div>
+    <div th:insert="~{fragments/accounts-element}"></div>
 </div>
