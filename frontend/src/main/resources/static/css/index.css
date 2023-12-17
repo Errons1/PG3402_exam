@@ -1,9 +1,9 @@
 body {
-    font-family: Arial, sans-serif; /* Use a simple, readable font */
-    color: #333; /* Dark grey color for most text */
-    line-height: 1.6; /* Space out lines of text */
-    padding: 20px; /* Add some space around the content */
-    background-color: #f4f4f4; /* Light grey background */
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f4f4f4;
 
     overflow-x: hidden;
     display: flex;
@@ -17,15 +17,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: #0080ff; /* A bright blue for links */
-    text-decoration: none; /* Remove underlines from links */
+    color: #0080ff;
+    text-decoration: none;
 }
 
 a:hover {
-    color: #0059b3; /* A different blue for hovered links */
+    color: #0059b3;
 }
 
-/* Style buttons with a gradient background and some padding */
 button {
     width: 150px;
     margin: 10px;
@@ -48,10 +47,60 @@ input {
     padding: 5px;
 }
 
+label {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+select {
+    width: 200px;
+    height: 35px;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    outline: none;
+}
+
+select option {
+    padding: 5px 10px;
+}
+
+.account-box {
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
+    width: 450px;
+    padding: 20px;
+    margin: 50px auto 0;
+    border-radius: 15px;
+}
+
+.account-details {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #d1d1d1;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.account-balance {
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}
+
 #main-container {
     width: 80%;
-    /*margin: auto; !* Center the content on the page *!*/
-    overflow: hidden; /* Clear floats */
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
@@ -69,12 +118,4 @@ input {
 #form-container {
     display: flex;
     flex-direction: column;
-}
-
-.success-message {
-    color: green;
-}
-
-.error-message {
-    color: red;
 }
