@@ -120,11 +120,6 @@ public class CreateAccountMvc {
                 Password: %s
                 """.formatted(customer.getPersonalId(), customer.getPassword());
         model.addAttribute("message", message);
-//        model.addAttribute("message",
-//                "Successfully made account \n" +
-//                "Username: " + customer.getPersonalId() + "   \n" +
-//                "Password: " + customer.getPassword() + "   "
-//        );
         return "create-account/response";
     }
 

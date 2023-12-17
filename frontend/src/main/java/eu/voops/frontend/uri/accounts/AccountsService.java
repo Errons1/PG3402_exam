@@ -1,6 +1,7 @@
 package eu.voops.frontend.uri.accounts;
 
 import eu.voops.frontend.dto.DtoAccount;
+import eu.voops.frontend.dto.DtoCreateProfileAccount;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class AccountsService {
         String url = "http://account/api/v1/get-all-accounts/" + internalId;
         ResponseEntity<DtoAccount[]> response = restTemplate.getForEntity(url, DtoAccount[].class);
         return List.of(response.getBody());
+    }
+
+    public void createNewAccount(DtoCreateProfileAccount dto) {
+        String url = "http://account/api/v1/create-account";
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(url, dto, Boolean.class);
     }
 }

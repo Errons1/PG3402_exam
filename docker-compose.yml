@@ -182,6 +182,24 @@ services:
       - 8080:8080
     networks:
       - spring
+  
+  transfer:
+    container_name: transfer
+    build:
+      context: transfer
+      dockerfile: Dockerfile
+    image: transfer:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring
 
 networks:
   spring:

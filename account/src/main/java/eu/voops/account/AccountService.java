@@ -1,6 +1,9 @@
 package eu.voops.account;
 
 import eu.voops.account.dto.DtoAccount;
+import eu.voops.account.dto.DtoNewBalance;
+import eu.voops.account.dto.DtoTransfer;
+import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,11 +22,7 @@ public class AccountService {
     private AccountRepository repository;
 
     public void createAccount(Account account) {
-        if (repository.existsByInternalId(account.getInternalId())) {
-            throw new ProfileExistException("Profile Exist");
-        } else {
             repository.save(account);
-        }
     }
 
     @Transactional
@@ -65,5 +64,25 @@ public class AccountService {
         }
         
         return dtoAccounts;
+    }
+
+    public DtoTransferAccountBalance getAccountBalance(DtoTransfer dto) {
+        Account accountFrom = repository.findByAccountNumber(dto.getTransferFrom());
+        Account accountTo = repository.findByAccountNumber(dto.getTransferTo());
+        if (accountFrom != null && accountTo != null) {
+            return new DtoTransferAccountBalance(accountFrom.getBalance(), accountTo.getBalance());
+        } else {
+            throw new NoSuchElementException("Account does not exist");
+        }
+    }
+
+    @Transactional
+    public void updateAccounts(DtoNewBalance dto) {
+        Account accountFrom = repository.findByAccountNumber(dto.getTransferFrom());
+        Account accountTo = repository.findByAccountNumber(dto.getTransferTo());
+        accountFrom.setBalance(dto.getTransferFromBalance());
+        accountTo.setBalance(dto.getTransferToBalance());
+        repository.save(accountFrom);
+        repository.save(accountTo);
     }
 }

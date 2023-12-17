@@ -1,5 +1,7 @@
 package eu.voops.account;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +16,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     boolean existsByInternalId(String internalId);
 
     List<Account> findAllByInternalId(String internalId);
+
+    Account findByAccountNumber(String accountNumber);
 }

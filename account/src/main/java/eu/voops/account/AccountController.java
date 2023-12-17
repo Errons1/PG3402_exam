@@ -1,7 +1,6 @@
 package eu.voops.account;
 
-import eu.voops.account.dto.DtoAccount;
-import eu.voops.account.dto.DtoCreateAccount;
+import eu.voops.account.dto.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -32,7 +31,7 @@ public class AccountController {
         log.info("Controller: attempting to create account");
         String randomAccount = service.makeAccountNumber();
         Account account = new Account(
-                dto.getInternalId(), dto.getAccountName(), randomAccount, 0L
+                dto.getInternalId(), dto.getAccountName(), randomAccount, 1000L
         );
 
         service.createAccount(account);
@@ -64,6 +63,24 @@ public class AccountController {
         log.info("Controller: Getting all accounts");
         List<DtoAccount> accounts = service.getAllAccounts(internalId);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+    
+    /**
+     * Retrieves the account balance for a transfer transaction.
+     *
+     * @param dto The DTO containing the transfer details.
+     * @return A ResponseEntity containing the account balances of the transfer accounts.
+     */
+    @PostMapping("/get-transfer-data")
+    public ResponseEntity<DtoTransferAccountBalance> getTransferData(@Valid @RequestBody @NonNull DtoTransfer dto) {
+        DtoTransferAccountBalance dtoTransferAccountBalance = service.getAccountBalance(dto);
+        return new ResponseEntity<>(dtoTransferAccountBalance, HttpStatus.OK);
+    }
+    
+    @PostMapping("/update-account-balance")
+    public ResponseEntity<Boolean> updateAccountBalance(@Valid @RequestBody @NonNull DtoNewBalance dto) {
+        service.updateAccounts(dto);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }
