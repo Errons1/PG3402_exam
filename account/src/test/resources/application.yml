@@ -23,6 +23,17 @@ spring:
       enabled: true
       path: /h2-console
 
+rabbit:
+  exchange:
+    requestAccount: requestAccount
+    receiveAccount: receiveAccount
+  queue:
+    requestAccount: requestAccount
+    receiveAccount: receiveAccount
+  key:
+    requestAccount: requestAccount
+    receiveAccount: receiveAccount
+
 management:
   health:
     rabbit:

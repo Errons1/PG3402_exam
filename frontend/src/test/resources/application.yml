@@ -9,6 +9,12 @@ spring:
   cloud:
     consul:
       enabled: false
+      
+rabbit:
+  exchange:
+    transfer: transfer
+  key:
+    transfer: transfer
 
 management:
   health:

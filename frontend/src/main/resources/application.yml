@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: frontend
+    
+rabbit:
+  exchange:
+    transfer: transfer
+  key:
+    transfer: transfer
 
 logging:
   pattern:
