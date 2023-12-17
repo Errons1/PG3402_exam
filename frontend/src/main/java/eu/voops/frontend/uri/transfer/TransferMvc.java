@@ -22,7 +22,7 @@ public class TransferMvc {
     private TransferService service;
 
     @GetMapping("")
-    public String transfer(Model model) {
+    public String transfer() {
         return "transfer/transfer";
     }
 

@@ -4,7 +4,6 @@ import eu.voops.account.dto.DtoAccount;
 import eu.voops.account.dto.DtoNewBalance;
 import eu.voops.account.dto.DtoTransfer;
 import eu.voops.account.dto.DtoTransferAccountBalance;
-import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

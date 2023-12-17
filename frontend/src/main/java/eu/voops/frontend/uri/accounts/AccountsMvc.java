@@ -1,7 +1,6 @@
 package eu.voops.frontend.uri.accounts;
 
 import eu.voops.frontend.dto.DtoAccount;
-import eu.voops.frontend.dto.DtoCreateAccount;
 import eu.voops.frontend.dto.DtoCreateProfileAccount;
 import eu.voops.frontend.dto.DtoNewAccount;
 import jakarta.validation.Valid;

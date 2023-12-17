@@ -1,6 +1,5 @@
 package eu.voops.account;
 
-import eu.voops.account.exception.ProfileExistException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

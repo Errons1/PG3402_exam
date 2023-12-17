@@ -16,17 +16,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-rabbit:
-  exchange:
-    requestAccount: requestAccount
-    receiveAccount: receiveAccount
-  queue:
-    requestAccount: requestAccount
-    receiveAccount: receiveAccount
-  key:
-    requestAccount: requestAccount
-    receiveAccount: receiveAccount
-
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
