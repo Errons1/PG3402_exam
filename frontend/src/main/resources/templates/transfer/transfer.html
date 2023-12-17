@@ -1,0 +1,27 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<button hx-get="/" hx-trigger="click" hx-target="#main-container">
+    Return
+</button>
+
+<form hx-post="/transfer" hx-trigger="submit" hx-target="#main-container">
+    <label for="transferFrom">Transfer From:</label>
+    <select id="transferFrom" name="transferFrom">
+        <option th:each="account : ${accounts}" th:value="${account.getAccountNumber()}"
+                th:text="|${account.getAccountName()}: ${account.getBalance()},-|"></option>
+    </select>
+
+    <label for="transferTo">Transfer To:</label>
+    <select id="transferTo" name="transferTo">
+        <option th:each="account : ${accounts}" th:value="${account.getAccountNumber()}"
+                th:text="|${account.getAccountName()}: ${account.getBalance()},-|"></option>
+    </select>
+
+    <label for="amount">Amount: </label>
+    <input type="number" id="amount" name="amount" required>
+
+    <button type="submit">
+        Transfer
+    </button>
+</form>

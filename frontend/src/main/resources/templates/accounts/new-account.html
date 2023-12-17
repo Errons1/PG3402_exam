@@ -1,0 +1,13 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<div>
+  <form hx-post="/accounts/new-account" hx-target="#main-container">
+    <div id="form-container">
+      <label for="accountName">Account name</label>
+      <input type="text" id="accountName" name="accountName" required>
+
+      <button type="submit">Create account</button>
+    </div>
+  </form>
+</div>

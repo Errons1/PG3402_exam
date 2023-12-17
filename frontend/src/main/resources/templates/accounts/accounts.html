@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 
 <div th:replace="~{fragments/button-logout}"></div>
-<div hx-get="/accounts/get-all-accounts" hx-trigger="load, every 5s">
+<div th:replace="~{fragments/button-transfer}"></div>
+<div hx-get="/accounts/get-all-accounts" hx-trigger="load, every 10s">
     <div th:replace="~{fragments/element-accounts}"></div>
 </div>
+<div th:replace="~{fragments/button-new-account}"></div>

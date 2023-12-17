@@ -1,14 +1,15 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 
-<div id="listDiv">
+<div>
     <ul th:each="account : ${accounts}" style="list-style-type: none">
         <li>
             <div class="account-box">
                 <div class="account-details">
                     <div th:text="${account.accountName}" class="account-name"></div>
-                    <div th:text="|kontonummer: ${account.accountNumber}|" class="account-number"></div>
+                    <div th:text="|AccountNr: ${account.accountNumber}|" class="account-number"></div>
                 </div>
-                <div th:text="|${account.balance} ,-|" class="account-balance">Balance: </div>
+                <div th:text="|${account.balance} ,-|" class="account-balance"></div>
             </div>
         </li>
     </ul>
