@@ -6,6 +6,7 @@
 
 *.http
 */HELP.md
+*.ps1
 */target/
 */node_modules/
 /backup/
