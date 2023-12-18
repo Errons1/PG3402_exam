@@ -10,14 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class DtoTransfer {
-    
+
     @NotBlank
     private String transferFrom;
 
+    @NotNull
+    private Long transferFromBalance;
+    
     @NotBlank
     private String transferTo;
 
     @NotNull
-    private Long amount;
-
+    private Long transferToBalance;
+    
 }
