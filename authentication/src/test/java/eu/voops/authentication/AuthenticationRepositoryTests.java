@@ -1,5 +1,6 @@
 package eu.voops.authentication;
 
+import eu.voops.authentication.entity.Authentication;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

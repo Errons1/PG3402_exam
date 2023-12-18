@@ -2,6 +2,7 @@ package eu.voops.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.voops.account.dto.DtoCreateAccount;
+import eu.voops.account.entity.Account;
 import eu.voops.account.exception.ProfileExistException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

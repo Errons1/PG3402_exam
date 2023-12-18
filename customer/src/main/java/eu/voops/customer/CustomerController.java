@@ -1,21 +1,23 @@
 package eu.voops.customer;
 
 import eu.voops.customer.dto.DtoCreateCustomer;
+import eu.voops.customer.entity.Customer;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class CustomerController {
 
-    private CustomerService service;
+    private final CustomerService service;
 
     /**
      * Checks if an account exists based on the provided personal ID.

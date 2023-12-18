@@ -1,7 +1,7 @@
 package eu.voops.transfer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.voops.transfer.dto.DtoTransfer;
+import eu.voops.transfer.dto.DtoTransferRequest;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +28,13 @@ public class TransferController {
     @RabbitHandler
     private void handleTransferRequest(@NonNull String json) throws Exception {
         log.info("Controller: Received transaction request");
-        DtoTransfer dtoTransfer = new ObjectMapper().readValue(json, DtoTransfer.class);
+        DtoTransferRequest dtoTransferRequest = new ObjectMapper().readValue(json, DtoTransferRequest.class);
 
 //        This sleep is here to simulate random that this service takes long while to execute its job
 //        And that is the reason we are using ASYNC communication between frontend and transaction to send data.
         Thread.sleep((long) (Math.random() * 5 * 1000) + 1);
         
-        service.processTransfer(dtoTransfer);
+        service.processTransfer(dtoTransferRequest);
         log.info("Controller: Successfully processed transaction");
     }
     

@@ -1,5 +1,6 @@
 package eu.voops.authentication;
 
+import eu.voops.authentication.entity.Authentication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,5 @@ public interface AuthenticationRepository extends JpaRepository<Authentication, 
     Authentication findByPersonalId(String personalId);
 
     boolean existsByPersonalId(String personalId);
+    
 }

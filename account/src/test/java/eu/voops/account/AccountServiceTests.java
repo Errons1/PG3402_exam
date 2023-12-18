@@ -1,5 +1,6 @@
 package eu.voops.account;
 
+import eu.voops.account.entity.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

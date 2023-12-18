@@ -3,17 +3,18 @@ package eu.voops.frontend.uri.accounts;
 import eu.voops.frontend.dto.DtoAccount;
 import eu.voops.frontend.dto.DtoCreateProfileAccount;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AccountsService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public String getFullNameWithInternalId(String internalId) {
         String url = "http://customer/api/v1/get-full-name/" + internalId;

@@ -2,17 +2,18 @@ package eu.voops.frontend.uri.login;
 
 import eu.voops.frontend.dto.DtoLogin;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class LoginService {
     
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     
     public boolean login(DtoLogin dto) {
         try {

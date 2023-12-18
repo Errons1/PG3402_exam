@@ -1,4 +1,4 @@
-package eu.voops.authentication;
+package eu.voops.authentication.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "authentications")
 public class Authentication {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -35,4 +36,5 @@ public class Authentication {
         this.personalId = personalId;
         this.passwordHash = passwordHash;
     }
+    
 }

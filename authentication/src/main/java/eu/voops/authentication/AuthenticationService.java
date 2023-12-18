@@ -1,21 +1,23 @@
 package eu.voops.authentication;
 
 import eu.voops.authentication.dto.DtoLogin;
+import eu.voops.authentication.entity.Authentication;
 import eu.voops.authentication.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AuthenticationService {
 
-    private AuthenticationRepository repository;
+    private final AuthenticationRepository repository;
 
     public void createAccount(@NonNull Authentication authentication) {
         if (repository.existsByInternalId(authentication.getInternalId())) {

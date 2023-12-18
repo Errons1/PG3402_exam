@@ -1,6 +1,7 @@
 package eu.voops.account;
 
 import eu.voops.account.dto.DtoCreateAccount;
+import eu.voops.account.entity.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

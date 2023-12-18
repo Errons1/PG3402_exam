@@ -4,8 +4,11 @@ import eu.voops.account.dto.DtoAccount;
 import eu.voops.account.dto.DtoNewBalance;
 import eu.voops.account.dto.DtoTransfer;
 import eu.voops.account.dto.DtoTransferAccountBalance;
+import eu.voops.account.entity.Account;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,14 +17,14 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AccountService {
 
-    private AccountRepository repository;
+    private final AccountRepository repository;
 
     public void createAccount(Account account) {
-            repository.save(account);
+        repository.save(account);
     }
 
     @Transactional
@@ -52,20 +55,20 @@ public class AccountService {
     public List<DtoAccount> getAllAccounts(String internalId) {
         List<Account> accounts = repository.findAllByInternalId(internalId);
         List<DtoAccount> dtoAccounts = new ArrayList<>(accounts.size());
-        
+
         for (Account account : accounts) {
             DtoAccount dto = new DtoAccount(
                     account.getInternalId(), account.getAccountName(),
                     account.getAccountNumber(), account.getBalance()
-            );    
-            
+            );
+
             dtoAccounts.add(dto);
         }
-        
+
         return dtoAccounts;
     }
 
-    public DtoTransferAccountBalance getAccountBalance(DtoTransfer dto) {
+    public DtoTransferAccountBalance getAccountBalance(@NonNull DtoTransfer dto) {
         Account accountFrom = repository.findByAccountNumber(dto.getTransferFrom());
         Account accountTo = repository.findByAccountNumber(dto.getTransferTo());
         if (accountFrom != null && accountTo != null) {
@@ -76,7 +79,7 @@ public class AccountService {
     }
 
     @Transactional
-    public void updateAccounts(DtoNewBalance dto) {
+    public void updateAccounts(@NonNull DtoNewBalance dto) {
         Account accountFrom = repository.findByAccountNumber(dto.getTransferFrom());
         Account accountTo = repository.findByAccountNumber(dto.getTransferTo());
         accountFrom.setBalance(dto.getTransferFromBalance());

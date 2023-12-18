@@ -1,20 +1,22 @@
 package eu.voops.customer;
 
 import eu.voops.customer.dto.DtoCreateCustomer;
+import eu.voops.customer.entity.Customer;
 import eu.voops.customer.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CustomerService {
 
-    CustomerRepository repository;
+    private final CustomerRepository repository;
 
     public boolean checkIfAccountExistByPersonalId(String personalId) {
         return repository.existsByPersonalId(personalId);

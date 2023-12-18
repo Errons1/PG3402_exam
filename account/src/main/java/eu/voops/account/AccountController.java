@@ -1,9 +1,11 @@
 package eu.voops.account;
 
 import eu.voops.account.dto.*;
+import eu.voops.account.entity.Account;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,12 @@ import java.util.List;
 
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class AccountController {
 
-    private AccountService service;
+    private final AccountService service;
 
     /**
      * Creates a new account with the given account details.
@@ -30,8 +32,9 @@ public class AccountController {
     public ResponseEntity<Boolean> createAccount(@Valid @RequestBody @NonNull DtoCreateAccount dto) {
         log.info("Controller: attempting to create account");
         String randomAccount = service.makeAccountNumber();
+        final Long defaultAccountBalance = 1000L; 
         Account account = new Account(
-                dto.getInternalId(), dto.getAccountName(), randomAccount, 1000L
+                dto.getInternalId(), dto.getAccountName(), randomAccount, defaultAccountBalance
         );
 
         service.createAccount(account);

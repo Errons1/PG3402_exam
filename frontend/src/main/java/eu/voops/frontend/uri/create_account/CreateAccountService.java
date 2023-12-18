@@ -1,12 +1,13 @@
 package eu.voops.frontend.uri.create_account;
 
-import eu.voops.frontend.Customer;
+import eu.voops.frontend.dto.DtoCustomer;
 import eu.voops.frontend.dto.DtoCreateProfileAccount;
 import eu.voops.frontend.dto.DtoCreateProfileAuthentication;
 import eu.voops.frontend.dto.DtoCreateProfileCustomer;
 import eu.voops.frontend.exception.AccountExistException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,11 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CreateAccountService {
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public String getInternalId(String personalId) {
         String url = "http://customer/api/v1/get-internal-id-by-personal-id/" + personalId;
@@ -38,10 +39,10 @@ public class CreateAccountService {
         return accountExist;
     }
 
-    public void createProfileAtCustomer(@NonNull Customer customer) {
+    public void createProfileAtCustomer(@NonNull DtoCustomer dtoCustomer) {
         DtoCreateProfileCustomer dto = new DtoCreateProfileCustomer(
-                customer.getPersonalId(), customer.getFirstName(), customer.getLastName(),
-                customer.getAddress(), customer.getTlf(), customer.getEmail()
+                dtoCustomer.getPersonalId(), dtoCustomer.getFirstName(), dtoCustomer.getLastName(),
+                dtoCustomer.getAddress(), dtoCustomer.getTlf(), dtoCustomer.getEmail()
         );
         
         String url = "http://customer/api/v1/create-customer";
@@ -50,9 +51,9 @@ public class CreateAccountService {
 
 
 
-    public void createProfileAtAuthentication(@NonNull Customer customer) {
+    public void createProfileAtAuthentication(@NonNull DtoCustomer dtoCustomer) {
         DtoCreateProfileAuthentication dto = new DtoCreateProfileAuthentication(
-                customer.getInternalId(), customer.getPersonalId(), customer.getPassword()
+                dtoCustomer.getInternalId(), dtoCustomer.getPersonalId(), dtoCustomer.getPassword()
         );
 
         try {
@@ -66,19 +67,19 @@ public class CreateAccountService {
     }
 
 
-    public void createProfileAtAccount(Customer customer) {
+    public void createProfileAtAccount(DtoCustomer dtoCustomer) {
         DtoCreateProfileAccount dto = new DtoCreateProfileAccount(
-                customer.getInternalId(), "Main Account"
+                dtoCustomer.getInternalId(), "Main Account"
         );
         
         String url = "http://account/api/v1/create-account";
         restTemplate.postForEntity(url, dto, Boolean.class);
     }
 
-    public void emergencyDelete(Customer customer) {
-        String urlCustomer = "http://customer/api/v1/emergency-delete/" + customer.getInternalId();
-        String urlAuthentication = "http://authentication/api/v1/emergency-delete/" + customer.getInternalId();
-        String urlAccount = "http://account/api/v1/emergency-delete/" + customer.getInternalId();
+    public void emergencyDelete(DtoCustomer dtoCustomer) {
+        String urlCustomer = "http://customer/api/v1/emergency-delete/" + dtoCustomer.getInternalId();
+        String urlAuthentication = "http://authentication/api/v1/emergency-delete/" + dtoCustomer.getInternalId();
+        String urlAccount = "http://account/api/v1/emergency-delete/" + dtoCustomer.getInternalId();
         
         restTemplate.delete(urlCustomer);
         restTemplate.delete(urlAuthentication);

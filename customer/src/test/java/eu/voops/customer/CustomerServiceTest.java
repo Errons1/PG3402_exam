@@ -1,6 +1,7 @@
 package eu.voops.customer;
 
 import eu.voops.customer.dto.DtoCreateCustomer;
+import eu.voops.customer.entity.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

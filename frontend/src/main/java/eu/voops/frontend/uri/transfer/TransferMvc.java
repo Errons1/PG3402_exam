@@ -6,6 +6,7 @@ import eu.voops.frontend.dto.DtoTransfer;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/transfer")
 public class TransferMvc {
 
-    private TransferService service;
+    private final TransferService service;
 
     @GetMapping("")
     public String transfer() {

@@ -2,9 +2,11 @@ package eu.voops.authentication;
 
 import eu.voops.authentication.dto.DtoCreateAccount;
 import eu.voops.authentication.dto.DtoLogin;
+import eu.voops.authentication.entity.Authentication;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class AuthenticationController {
 
-    private AuthenticationService service;
+    private final AuthenticationService service;
     
     /**
      * Creates a new account by validating the input data, creating an authentication object and saving it.

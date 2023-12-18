@@ -1,4 +1,4 @@
-package eu.voops.account;
+package eu.voops.account.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "accounts")
 public class Account {

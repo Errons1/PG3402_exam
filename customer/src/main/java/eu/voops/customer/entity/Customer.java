@@ -1,4 +1,4 @@
-package eu.voops.customer;
+package eu.voops.customer.entity;
 
 
 import jakarta.persistence.*;
