@@ -20,41 +20,47 @@ public class CustomerController {
     /**
      * Checks if an account exists based on the provided personal ID.
      *
-     * @param personalId the personal ID for which the existence of the account will be checked
-     * @return Boolean if an account with the given personal ID exists, false otherwise
+     * @param personalId The personal ID of the account to check.
+     * @return ResponseEntity containing a Boolean value indicating if the account exists or not.
      */
     @GetMapping("/check-if-customer-exist/{personalId}")
-    public ResponseEntity<Boolean> checkIfAccountExistByPersonalId(@PathVariable String personalId) {
-        log.info("Controller: check if account " + personalId + " exist");
+    public ResponseEntity<Boolean> checkIfAccountExistByPersonalId(@PathVariable @NonNull String personalId) {
+        log.info("Controller: Check if account exist by personal ID");
         boolean accountExist = service.checkIfAccountExistByPersonalId(personalId);
+
+        log.info("Controller: Successfully checked existence of account");
         return new ResponseEntity<>(accountExist, HttpStatus.OK);
     }
 
     /**
-     * Retrieves the internal ID of a customer based on their personal ID.
+     * Retrieves the internalId using the provided personalId.
      *
-     * @param personalId the personal ID of the customer
-     * @return the internal ID of the customer
+     * @param personalId the personalId used to retrieve the internalId
+     * @return a ResponseEntity with the internalId if found, or HttpStatus.NOT_FOUND if not found
      */
     @GetMapping("/get-internal-id-by-personal-id/{personalId}")
-    public ResponseEntity<String> getInternalIdByPersonalId(@PathVariable String personalId) {
-        log.info("Controller: Getting internalId by " + personalId);
+    public ResponseEntity<String> getInternalIdByPersonalId(@PathVariable @NonNull String personalId) {
+        log.info("Controller: Getting internal ID by Personal ID");
+
         String internalId = service.getInternalIdByPersonalId(personalId);
         if (internalId == null) {
+            log.info("Controller: Internal ID not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
+            log.info("Controller: Intern ID found");
             return new ResponseEntity<>(internalId, HttpStatus.OK);
         }
     }
 
     /**
-     * Creates a customer based on the provided DTO.
+     * Creates a new customer based on the provided DTO.
      *
-     * @param dto the DTO containing the customer information
-     * @return Boolean indicating the success of creating the customer
+     * @param dto The DTO containing the customer details.
+     * @return A ResponseEntity indicating the success of the customer creation.
      */
     @PostMapping("/create-customer")
-    public ResponseEntity<Boolean> createCustomer(@Valid @RequestBody DtoCreateCustomer dto) {
+    public ResponseEntity<Boolean> createCustomer(@Valid @RequestBody @NonNull DtoCreateCustomer dto) {
+        log.info("Controller: Attempting to create customer");
         String internalId = service.createInternalId(dto);
 
         Customer customer = new Customer(
@@ -64,35 +70,43 @@ public class CustomerController {
         );
 
         service.createCustomer(customer);
+        log.info("Controller: Successfully created account");
         return new ResponseEntity<>(true, HttpStatus.CREATED);
     }
-    
+
     /**
-     * Deletes a customer profile in case of emergency.
+     * Deletes a profile in emergency mode using the specified internal ID.
      *
-     * @param internalId the internal ID of the customer profile to be deleted
-     * @return the response entity indicating the success of the operation
+     * @param internalId the internal ID of the profile to be deleted
+     * @return a ResponseEntity with HTTP status code 200 (OK) indicating successful deletion
      */
     @DeleteMapping("/emergency-delete/{internalId}")
     public ResponseEntity<Object> emergencyDelete(@PathVariable @NonNull String internalId) {
-        log.info("Controller: Try delete profile");
+        log.info("Controller: Attempting to delete customer");
         service.emergencyDelete(internalId);
+
+        log.info("Controller: Successfully deleted customer");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
-     * Retrieves the full name associated with the provided internal ID.
+     * Retrieves the full name for the given internal ID.
      *
-     * @param internalId the internal ID used to identify the full name
-     * @return a ResponseEntity object containing the full name if found, otherwise returns HTTP status code 404 (NOT_FOUND)
+     * @param internalId the internal ID of the user
+     * @return a ResponseEntity instance with the full name as the body if found, otherwise returns a ResponseEntity with HTTP status code 404 (Not Found)
+     * @since 1.0.0
      */
     @GetMapping("get-full-name/{internalId}")
-    public ResponseEntity<String> getFullName(@PathVariable @NonNull String internalId) {
-        log.info("Controller: Getting full name");
+    public ResponseEntity<String> getFullNameByInternalId(@PathVariable @NonNull String internalId) {
+        log.info("Controller: Attempting to get full name by internal ID");
         String fullName = service.getFullName(internalId);
+        
         if (fullName == null) {
+            log.info("Controller: Full name not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            
         } else {
+            log.info("Controller: Full name found");
             return new ResponseEntity<>(fullName, HttpStatus.OK);
         }
     }
