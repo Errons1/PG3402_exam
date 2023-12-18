@@ -1,79 +1,74 @@
-name: bank
+name: bank_dockerhub
 version: "0.1"
 
 services:
   consul:
     image: consul:1.15.4
-    container_name: consul
+    container_name: consul-dockerhub
     ports:
       - 8500:8500
       - 8600:8600/udp
     networks:
-      - spring
+      - spring-docker
   
   consul-importer:
-    image: consul-importer:latest
-    container_name: consul-importer
-    build:
-      context: consul-importer
-      dockerfile: Dockerfile
+    image: errons1/consul-importer:latest
+    container_name: consul-importer-dockerhub
     depends_on:
       - consul
     networks:
-      - spring
-      
+      - spring-docker
+  
   rabbitmq:
     image: rabbitmq:management
-    container_name: rabbitmq
+    container_name: rabbitmq-dockerhub
     ports:
       - 5672:5672
       - 15672:15672
     networks:
-      - spring
+      - spring-docker
   
   zipkin:
     image: openzipkin/zipkin:latest
-    container_name: zipkin
+    container_name: zipkin-dockerhub
     ports:
       - 9411:9411
     networks:
-      - spring
+      - spring-docker
   
   db-authentication:
     image: postgres
-    container_name: db-authentication
+    container_name: db-authentication-dockerhub
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5400:5432
     networks:
-      - spring
+      - spring-docker
 
   db-customer:
     image: postgres
-    container_name: db-customer
+    container_name: db-customer-dockerhub
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5500:5432
     networks:
-      - spring
+      - spring-docker
 
   db-account:
     image: postgres
-    container_name: db-account
+    container_name: db-account-dockerhub
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5600:5432
     networks:
-      - spring
-        
-  frontend:
-    build:
-      context: frontend
-      dockerfile: Dockerfile
-    image: frontend:latest
+      - spring-docker
+  
+  logs:
+    image: errons1/logs:latest
+    container_name: logs-dockerhub
     depends_on:
       consul:
         condition: service_started
@@ -84,15 +79,42 @@ services:
     ports:
       - 0:8080
     networks:
-      - spring
+      - spring-docker
+
+  gateway:
+    image: errons1/gateway:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring-docker
+    deploy:
+      replicas: 3
+  
+  frontend:
+    image: errons1/frontend:latest
+    depends_on:
+      consul:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      zipkin:
+        condition: service_started
+    ports:
+      - 0:8080
+    networks:
+      - spring-docker
     deploy:
       replicas: 3
   
   account:
-    build:
-      context: account
-      dockerfile: Dockerfile
-    image: account:latest
+    image: errons1/account:latest
     depends_on:
       consul:
         condition: service_started
@@ -103,15 +125,12 @@ services:
     ports:
       - 0:8080
     networks:
-      - spring
+      - spring-docker
     deploy:
       replicas: 3
   
   customer:
-    build:
-      context: customer
-      dockerfile: Dockerfile
-    image: customer:latest
+    image: errons1/customer:latest
     depends_on:
       consul:
         condition: service_started
@@ -122,15 +141,12 @@ services:
     ports:
       - 0:8080
     networks:
-      - spring
+      - spring-docker
     deploy:
       replicas: 3
   
   authentication:
-    build:
-      context: authentication
-      dockerfile: Dockerfile
-    image: authentication:latest
+    image: errons1/authentication:latest
     depends_on:
       consul:
         condition: service_started
@@ -141,52 +157,12 @@ services:
     ports:
       - 0:8080
     networks:
-      - spring
-    deploy:
-      replicas: 3
-
-  logs:
-    container_name: logs
-    build:
-      context: logs
-      dockerfile: Dockerfile
-    image: logs:latest
-    depends_on:
-      consul:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
-      zipkin:
-        condition: service_started
-    ports:
-      - 0:8080
-    networks:
-      - spring
-
-  gateway:
-    build:
-      context: gateway
-      dockerfile: Dockerfile
-    image: gateway:latest
-    depends_on:
-      consul:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
-      zipkin:
-        condition: service_started
-    ports:
-      - 0:8080
-    networks:
-      - spring
+      - spring-docker
     deploy:
       replicas: 3
 
   transfer:
-    build:
-      context: transfer
-      dockerfile: Dockerfile
-    image: transfer:latest
+    image: errons1/transfer:latest
     depends_on:
       consul:
         condition: service_started
@@ -197,10 +173,10 @@ services:
     ports:
       - 0:8080
     networks:
-      - spring
+      - spring-docker
     deploy:
       replicas: 3
 
 networks:
-  spring:
+  spring-docker:
     driver: bridge
