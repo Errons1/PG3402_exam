@@ -3,6 +3,9 @@ spring:
     name: frontend
   cloud:
     consul:
+      discovery:
+        instance-id: frontend-${random.long}
+        service-name: frontend
       config:
         prefixes: config
         default-context: defaults

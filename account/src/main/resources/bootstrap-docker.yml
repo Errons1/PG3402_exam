@@ -3,6 +3,9 @@ spring:
     name: account
   cloud:
     consul:
+      discovery:
+        instance-id: account-${random.long}
+        service-name: account
       config:
         prefixes: config
         default-context: defaults

@@ -3,6 +3,9 @@ spring:
     name: gateway
   cloud:
     consul:
+      discovery:
+        instance-id: gateway-${random.long}
+        service-name: gateway
       config:
         prefixes: config
         default-context: defaults

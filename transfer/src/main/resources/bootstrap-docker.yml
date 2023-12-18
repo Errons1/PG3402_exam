@@ -3,6 +3,9 @@ spring:
     name: transfer
   cloud:
     consul:
+      discovery:
+        instance-id: transfer-${random.long}
+        service-name: transfer
       config:
         prefixes: config
         default-context: defaults
