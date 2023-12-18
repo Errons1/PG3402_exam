@@ -5,6 +5,7 @@ import eu.voops.account.dto.DtoNewBalance;
 import eu.voops.account.dto.DtoTransfer;
 import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.entity.Account;
+import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class AccountService {
 
     private final AccountRepository repository;
 
-    public void createAccount(Account account) {
+    public void createAccount(@NonNull Account account) {
         repository.save(account);
     }
 
@@ -70,6 +71,7 @@ public class AccountService {
     public DtoTransferAccountBalance getAccountBalance(@NonNull DtoTransfer dto) {
         Account accountFrom = repository.findByAccountNumber(dto.getTransferFrom());
         Account accountTo = repository.findByAccountNumber(dto.getTransferTo());
+
         if (accountFrom != null && accountTo != null) {
             return new DtoTransferAccountBalance(accountFrom.getBalance(), accountTo.getBalance());
         } else {

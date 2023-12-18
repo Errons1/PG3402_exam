@@ -1,7 +1,12 @@
 package eu.voops.account;
 
+import eu.voops.account.dto.DtoAccount;
 import eu.voops.account.dto.DtoCreateAccount;
+import eu.voops.account.dto.DtoTransfer;
+import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.entity.Account;
+import jakarta.transaction.Transactional;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +17,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.instancio.Select.field;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AccountIntegrationTests {
@@ -46,7 +56,6 @@ public class AccountIntegrationTests {
         assertEquals(Boolean.TRUE, response.getBody(), "Expects TRUE that profile got made");
     }
 
-//    TODO: re-write this test to handle same accountID made on existing accountID
 //    @Test
 //    public void createAccount_accountExist_status409() {
 //        DtoCreateAccount dto = new DtoCreateAccount(account.getInternalId(), account.getAccountName());
@@ -89,4 +98,64 @@ public class AccountIntegrationTests {
         ResponseEntity<Void> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
+
+    @Test
+    public void getAllAccounts_accountsExist_status200() throws Exception {
+        String internalId = account.getInternalId();
+        List<Account> accounts = new ArrayList<>();
+        List<DtoAccount> dtoAccounts = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            Account tmp = Instancio.create(Account.class);
+            tmp.setInternalId(internalId);
+            accounts.add(tmp);
+            
+            dtoAccounts.add(new DtoAccount(
+                    tmp.getInternalId(), tmp.getAccountName(), 
+                    tmp.getAccountNumber(), tmp.getBalance())
+            );
+        }
+        repository.saveAll(accounts);
+        repository.flush();
+        
+        String url = "/api/v1/get-all-accounts/" + internalId;
+        ResponseEntity<DtoAccount[]> responseEntity = restTemplate.getForEntity(url, DtoAccount[].class);
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertIterableEquals(dtoAccounts, Arrays.asList(responseEntity.getBody()));
+    }
+
+    @Test
+    public void getAllAccounts_noAccountsExist_status200() throws Exception {
+        String url = "/api/v1/get-all-accounts/" + "internalId";
+        ResponseEntity<DtoAccount[]> responseEntity = restTemplate.getForEntity(url, DtoAccount[].class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals(0, Arrays.asList(responseEntity.getBody()).size());
+    }
+
+//    @Test
+//    @Transactional
+//    public void getTransferData_status200() throws Exception {
+//        DtoTransfer dtoTransfer = Instancio.create(DtoTransfer.class);
+//        Account account1 = Instancio.of(Account.class).ignore(field(Account::getId)).create();
+//        Account account2 = Instancio.of(Account.class).ignore(field(Account::getId)).create();
+//        
+//        account1.setAccountNumber(dtoTransfer.getTransferFrom());
+//        account2.setAccountNumber(dtoTransfer.getTransferTo());
+//        repository.save(account1);
+//        repository.save(account2);
+//        repository.flush();
+//        
+//        
+//        String url = "/api/v1/get-transfer-data";
+//        ResponseEntity<DtoTransferAccountBalance> responseEntity = 
+//                restTemplate.postForEntity(url, dtoTransfer, DtoTransferAccountBalance.class);
+//
+//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assertNotNull(responseEntity.getBody());
+//        assertEquals(0, Arrays.asList(responseEntity.getBody()).size());
+//    }
 }
