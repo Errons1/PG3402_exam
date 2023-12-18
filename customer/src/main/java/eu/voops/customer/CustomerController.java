@@ -3,7 +3,6 @@ package eu.voops.customer;
 import eu.voops.customer.dto.DtoCreateCustomer;
 import eu.voops.customer.entity.Customer;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

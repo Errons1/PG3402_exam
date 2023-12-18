@@ -39,9 +39,7 @@ public class TransferService {
             );
 
             String urlUpdateAccounts = "http://account/api/v1/update-account-balance";
-            ResponseEntity<Boolean> response = restTemplate.postForEntity(
-                    urlUpdateAccounts, transfer, Boolean.class
-            );
+            restTemplate.postForEntity(urlUpdateAccounts, transfer, Boolean.class);
         }
     }
     

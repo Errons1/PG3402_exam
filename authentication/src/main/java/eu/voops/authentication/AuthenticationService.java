@@ -4,7 +4,6 @@ import eu.voops.authentication.dto.DtoLogin;
 import eu.voops.authentication.entity.Authentication;
 import eu.voops.authentication.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

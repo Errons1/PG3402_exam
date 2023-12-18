@@ -5,7 +5,6 @@ import eu.voops.frontend.dto.DtoCreateProfileAccount;
 import eu.voops.frontend.dto.DtoCreateProfileAuthentication;
 import eu.voops.frontend.dto.DtoCreateProfileCustomer;
 import eu.voops.frontend.exception.AccountExistException;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

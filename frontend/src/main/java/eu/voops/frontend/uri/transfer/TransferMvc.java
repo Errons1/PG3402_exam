@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.voops.frontend.dto.DtoAccount;
 import eu.voops.frontend.dto.DtoTransfer;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,6 @@ import eu.voops.authentication.dto.DtoCreateAccount;
 import eu.voops.authentication.dto.DtoLogin;
 import eu.voops.authentication.entity.Authentication;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

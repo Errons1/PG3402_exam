@@ -3,7 +3,6 @@ package eu.voops.frontend.uri.create_account;
 import eu.voops.frontend.dto.DtoCustomer;
 import eu.voops.frontend.dto.DtoCreateAccount;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

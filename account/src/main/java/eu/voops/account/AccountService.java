@@ -6,7 +6,6 @@ import eu.voops.account.dto.DtoTransfer;
 import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.entity.Account;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
