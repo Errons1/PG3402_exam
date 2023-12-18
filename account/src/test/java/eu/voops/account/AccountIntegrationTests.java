@@ -2,10 +2,7 @@ package eu.voops.account;
 
 import eu.voops.account.dto.DtoAccount;
 import eu.voops.account.dto.DtoCreateAccount;
-import eu.voops.account.dto.DtoTransfer;
-import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.entity.Account;
-import jakarta.transaction.Transactional;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.instancio.Select.field;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -100,7 +96,7 @@ public class AccountIntegrationTests {
     }
 
     @Test
-    public void getAllAccounts_accountsExist_status200() throws Exception {
+    public void getAllAccounts_accountsExist_status200() {
         String internalId = account.getInternalId();
         List<Account> accounts = new ArrayList<>();
         List<DtoAccount> dtoAccounts = new ArrayList<>();
@@ -127,7 +123,7 @@ public class AccountIntegrationTests {
     }
 
     @Test
-    public void getAllAccounts_noAccountsExist_status200() throws Exception {
+    public void getAllAccounts_noAccountsExist_status200() {
         String url = "/api/v1/get-all-accounts/" + "internalId";
         ResponseEntity<DtoAccount[]> responseEntity = restTemplate.getForEntity(url, DtoAccount[].class);
 

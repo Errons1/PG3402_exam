@@ -5,7 +5,6 @@ import eu.voops.account.dto.DtoNewBalance;
 import eu.voops.account.dto.DtoTransfer;
 import eu.voops.account.dto.DtoTransferAccountBalance;
 import eu.voops.account.entity.Account;
-import eu.voops.account.exception.ProfileExistException;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
